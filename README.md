@@ -18,7 +18,7 @@ A luxury growth studio website. Cinematic, dark-velvet, gold-accented. Built for
 nvm use 20   # or any Node >= 20.9
 npm install
 npm run dev  # http://localhost:3000
-npm run build && npm start
+npm run build  # emits static GitHub Pages output to ./out
 ```
 
 > The project is pinned to Node 20 via Volta (`package.json` engines field). Next.js 16 requires Node 20.9+.
@@ -66,8 +66,7 @@ app/
   case-studies/         /case-studies — featured + others
   about/                /about — story, values, stats
   insights/             /insights — blog magazine grid
-  contact/              /contact — form + info
-  api/contact/route.ts  Stub endpoint, logs submissions
+  contact/              /contact — Calendly + static-safe contact form
 
 components/
   layout/   Nav, Footer, SmoothScroll
@@ -98,108 +97,40 @@ Everything visual on the site is currently rendered with CSS / SVG mockups so yo
 | Insights post covers | HSL gradient blocks in `app/insights/page.tsx` | Replace with `<Image src="/insights/<slug>.jpg" .../>` |
 | About hero image | `public/logo.png` in `app/about/page.tsx` | Replace with team / studio photo |
 
+## GitHub Pages deployment
+
+This repo is configured for GitHub Pages static hosting:
+
+- `next.config.ts` uses `output: "export"` and writes the deployable site to `out/`.
+- `.github/workflows/pages.yml` builds on every push to `main` and deploys `out/` with GitHub Pages Actions.
+- The root `CNAME` is copied into the artifact, but the custom domain still needs to be set in GitHub Pages settings.
+- The workflow writes `out/.nojekyll` so GitHub Pages serves `/_next/` assets correctly.
+
+In GitHub, set **Settings -> Pages -> Build and deployment -> Source** to **GitHub Actions**. Then set **Custom domain** to `velvetdigital.io` and enable **Enforce HTTPS** after GitHub finishes provisioning the certificate.
+
+DNS for the apex domain should point to GitHub Pages:
+
+```text
+A     @    185.199.108.153
+A     @    185.199.109.153
+A     @    185.199.110.153
+A     @    185.199.111.153
+AAAA  @    2606:50c0:8000::153
+AAAA  @    2606:50c0:8001::153
+AAAA  @    2606:50c0:8002::153
+AAAA  @    2606:50c0:8003::153
+CNAME www  <your-github-user-or-org>.github.io
+```
+
 ## Lead capture (contact form + Calendly)
 
-The `/contact` page has a tabbed layout: **Book a call** (Calendly inline embed, default) and **Send a message** (the form). The "Book a Call" CTAs across the site (Nav, Hero, Final CTA, Footer, Services, Case Studies, Portfolio end-card) all open the Calendly popup widget — no page jump.
+The `/contact` page has a tabbed layout: **Book a call** (Calendly inline embed, default) and **Send a message** (the form). GitHub Pages cannot run a Next.js API route, so the message form is static-safe:
 
-### Environment variables
+- Set `NEXT_PUBLIC_CONTACT_ENDPOINT` to a public form/webhook endpoint if you want browser-side submissions.
+- Set `NEXT_PUBLIC_CONTACT_ENDPOINT_MODE=no-cors` for Google Apps Script style endpoints that accept raw text posts.
+- If no endpoint is configured, the form opens a pre-filled email to `hello@velvetdigital.io`.
 
-Copy `.env.example` to `.env.local`:
-
-```bash
-cp .env.example .env.local
-```
-
-Fill in:
-
-| Var | Purpose |
-| --- | --- |
-| `RESEND_API_KEY` | Resend API key for sending lead emails |
-| `CONTACT_FROM_EMAIL` | `"Velvet Digital <hello@velvetdigital.io>"` (use `onboarding@resend.dev` until domain is verified) |
-| `CONTACT_TO_EMAIL` | Inbox(es) that receive leads (comma-separated for many) |
-| `GOOGLE_SHEET_WEBHOOK_URL` | Apps Script web-app URL that appends to a Sheet |
-| `GOOGLE_SHEET_WEBHOOK_SECRET` | Shared secret sent as `x-velvet-secret` header |
-| `NEXT_PUBLIC_CALENDLY_URL` | Your Calendly event URL (e.g. `https://calendly.com/yj291197/30min`) |
-
-If any of these are missing, the route degrades gracefully: missing Resend → no email but Sheet still logs; missing Sheet URL → no log but email still goes out; both missing → request fails with a 502 and the form shows a friendly error pointing users to `hello@velvetdigital.io`.
-
-### 1) Resend setup (email)
-
-1. Sign up at [resend.com](https://resend.com), copy your API key into `RESEND_API_KEY`.
-2. For dev testing, leave `CONTACT_FROM_EMAIL="Velvet Digital <onboarding@resend.dev>"` — Resend allows sending from this address without domain verification.
-3. For production, **verify `velvetdigital.io`** in Resend (add the DNS records they show) and switch `CONTACT_FROM_EMAIL` to `"Velvet Digital <hello@velvetdigital.io>"`.
-4. Set `CONTACT_TO_EMAIL=hello@velvetdigital.io` (or add multiple separated by commas).
-
-Lead emails are HTML, branded in velvet/gold, with `Reply-To` set to the lead — so clicking Reply in your inbox replies directly to the lead.
-
-### 2) Google Sheet setup (durable lead log)
-
-1. Create a new Google Sheet (e.g. "Velvet Digital — Leads").
-2. In the sheet, **Extensions → Apps Script**. Replace the default code with the script below.
-3. Set `SHARED_SECRET` in the script to the same value you use for `GOOGLE_SHEET_WEBHOOK_SECRET`.
-4. Click **Deploy → New deployment → Web app**.
-   - Execute as: **Me**
-   - Who has access: **Anyone**
-5. Copy the deployment URL into `GOOGLE_SHEET_WEBHOOK_URL`.
-
-```javascript
-// Google Apps Script — paste into your Sheet's Apps Script editor
-const SHARED_SECRET = "replace_with_a_long_random_string"; // match GOOGLE_SHEET_WEBHOOK_SECRET
-
-function doPost(e) {
-  try {
-    const headers = (e.parameter && e.parameter.headers) || {};
-    // Apps Script doesn't expose headers directly. We pass the secret in
-    // the request body if header isn't available; the Next.js route sends
-    // both, so we accept either.
-    const raw = e.postData && e.postData.contents;
-    const body = raw ? JSON.parse(raw) : {};
-
-    // Accept either header (when proxied) or body.secret as a fallback.
-    const givenSecret =
-      (e.parameter && e.parameter.secret) || body.__secret || "";
-    if (SHARED_SECRET && givenSecret && givenSecret !== SHARED_SECRET) {
-      return ContentService.createTextOutput(
-        JSON.stringify({ ok: false, error: "unauthorized" }),
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        "Submitted At",
-        "Name",
-        "Email",
-        "Company",
-        "Budget",
-        "Services",
-        "Message",
-        "Source",
-      ]);
-    }
-    sheet.appendRow([
-      body.submittedAt || new Date().toISOString(),
-      body.name || "",
-      body.email || "",
-      body.company || "",
-      body.budget || "",
-      (body.services || []).join(", "),
-      body.message || "",
-      body.source || "",
-    ]);
-    return ContentService.createTextOutput(JSON.stringify({ ok: true }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ ok: false, error: String(err) }),
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-```
-
-> Note: Apps Script `doPost` cannot read custom request headers, so the Next.js route also sends the secret in the JSON body as `__secret` (TODO if you want stricter auth — for most agency use the simple "publish to web" URL is fine on its own since it's a guessable-but-not-discoverable random URL).
-
-### 3) Calendly setup
+### Calendly setup
 
 1. Paste your Calendly event URL into `NEXT_PUBLIC_CALENDLY_URL`. Example used in code: `https://calendly.com/yj291197/30min`.
 2. Optional — on Calendly Pro you can customise the colors used by the embed in `lib/calendly.ts` (`backgroundColor`, `textColor`, `primaryColor`). They're already set to match the brand.
@@ -207,7 +138,7 @@ function doPost(e) {
 ### Spam protection
 
 - Invisible **honeypot** field (`name="website"`) in the form. Bots fill it; we drop those submissions silently.
-- **In-memory per-IP rate limit** in `lib/rate-limit.ts` — 5 submissions / 60s. For production scale or multi-instance deploys, swap to Upstash Redis (drop-in: `@upstash/ratelimit`).
+- For browser-side webhook submissions, use spam controls in the receiving service. GitHub Pages has no server runtime for IP-based rate limiting.
 
 ## Pages Map
 
@@ -228,4 +159,3 @@ function doPost(e) {
 3. **Typography heavy** — Clash Display for size, Satoshi for body. Lots of whitespace.
 4. **Realistic mockups** — never stock photos. Dashboards, phones, reels.
 5. **Cinematic motion** — fade, float, glide. Never bounce/spin/flash.
-

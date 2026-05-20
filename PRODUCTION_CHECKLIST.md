@@ -9,35 +9,36 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocker
 ## 1. Domain & hosting
 
 - [ ] Buy / confirm ownership of `velvetdigital.io`
-- [ ] Decide host: **Vercel** (recommended — first-class Next 16 support, free SSL, edge cache)
-- [ ] Create Vercel project, connect this repo
-- [ ] Point apex `velvetdigital.io` + `www.velvetdigital.io` DNS to Vercel (A + CNAME records they show)
+- [x] Decide host: **GitHub Pages** (static export)
+- [x] Add GitHub Pages Actions workflow
+- [ ] In GitHub repo settings, set Pages source to **GitHub Actions**
+- [ ] In GitHub repo settings, set custom domain to `velvetdigital.io`
+- [ ] Point apex `velvetdigital.io` to GitHub Pages A and AAAA records
+- [ ] Point `www.velvetdigital.io` CNAME to `<your-github-user-or-org>.github.io`
+- [ ] Enable **Enforce HTTPS** after GitHub provisions the certificate
 - [ ] Enable HSTS once HTTPS is stable
-- [ ] Add a 404 monitor / uptime check (Vercel built-in, or BetterStack / UptimeRobot free tier)
+- [ ] Add a 404 monitor / uptime check (BetterStack / UptimeRobot free tier)
 
-## 2. Environment variables (`.env.production` on Vercel)
+## 2. Environment variables (GitHub Actions or local build)
 
-- [ ] `RESEND_API_KEY` — production key (separate from dev)
-- [ ] `CONTACT_FROM_EMAIL` — `"Velvet Digital <hello@velvetdigital.io>"` (after domain verification, see §3)
-- [ ] `CONTACT_TO_EMAIL` — production inbox(es)
-- [ ] `GOOGLE_SHEET_WEBHOOK_URL` — Apps Script deployment URL
-- [ ] `GOOGLE_SHEET_WEBHOOK_SECRET` — long random string, rotated on launch
 - [ ] `NEXT_PUBLIC_CALENDLY_URL` — final Calendly link (currently `https://calendly.com/yj291197/30min`)
+- [ ] `NEXT_PUBLIC_CONTACT_ENDPOINT` — optional public form/webhook endpoint for the static contact form
+- [ ] `NEXT_PUBLIC_CONTACT_ENDPOINT_MODE=no-cors` — optional for Google Apps Script endpoints
 
-## 3. Email deliverability (Resend)
+## 3. Email deliverability
 
-- [ ] Add `velvetdigital.io` as a verified domain in Resend
-- [ ] Add the SPF, DKIM, DMARC, and Return-Path DNS records Resend provides
-- [ ] Wait for "verified" status, then flip `CONTACT_FROM_EMAIL` off the `onboarding@resend.dev` fallback
-- [ ] Send a test lead from `/contact`, confirm it lands in the configured inbox(es) and doesn't go to spam
+- [ ] Set up `hello@velvetdigital.io` with the chosen mailbox provider
+- [ ] Add SPF, DKIM, DMARC, and Return-Path DNS records from that provider
+- [ ] Send a test lead from `/contact`, confirm the fallback email or webhook flow works
 - [ ] Set up a forwarding rule / Gmail filter so leads are tagged "Velvet · Lead" and never archived
 - [ ] (Optional) Add an autoresponder template to leads — "We got your message, will reply within 1 business day"
 
 ## 4. Lead storage (Google Sheet)
 
 - [ ] Create the production Google Sheet ("Velvet Digital — Leads · Prod")
-- [ ] Paste the Apps Script from README, set `SHARED_SECRET` to match the env var
-- [ ] Deploy as a Web App, **Anyone** access, copy URL into `GOOGLE_SHEET_WEBHOOK_URL`
+- [ ] Deploy an Apps Script Web App or use a form backend that accepts browser-side submissions
+- [ ] Copy the public endpoint into `NEXT_PUBLIC_CONTACT_ENDPOINT`
+- [ ] If using Apps Script without CORS, set `NEXT_PUBLIC_CONTACT_ENDPOINT_MODE=no-cors`
 - [ ] Share the Sheet with the team (Editor for ops, Viewer for everyone else)
 - [ ] Add Sheet views/filters: "New this week", "By industry", "Hot (budget > $15k)"
 - [ ] Add an automation (Apps Script trigger or Zapier) that pings Slack/Discord on new row (optional but high-leverage)
@@ -54,8 +55,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocker
 ## 6. Spam, abuse, legal
 
 - [x] Honeypot field in form
-- [x] In-memory per-IP rate limit (5/min)
-- [ ] Decide whether to upgrade rate limit to Upstash Redis (only needed if we get multiple Vercel instances — single region is fine without)
+- [ ] Add spam/rate-limit controls in the selected public form backend
 - [ ] Add Cloudflare Turnstile if spam volume becomes annoying
 - [ ] Privacy policy page (`/privacy`)
 - [ ] Terms page (`/terms`)

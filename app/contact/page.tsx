@@ -17,8 +17,45 @@ const services = [
   "SEO + GEO",
   "AI Automation",
 ];
+const contactEndpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT?.trim();
+const contactEndpointMode = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT_MODE;
 
 type Tab = "call" | "message";
+type ContactPayload = {
+  name: string;
+  email: string;
+  company: string;
+  budget: string;
+  services: string[];
+  message: string;
+  website: string;
+  source: string;
+  submittedAt: string;
+};
+
+function formString(form: FormData, key: string) {
+  const value = form.get(key);
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function buildMailto(payload: ContactPayload) {
+  const subject = `New enquiry from ${payload.name || payload.email}`;
+  const body = [
+    `Name: ${payload.name || "-"}`,
+    `Email: ${payload.email}`,
+    `Company: ${payload.company || "-"}`,
+    `Budget: ${payload.budget || "-"}`,
+    `Services: ${payload.services.length ? payload.services.join(", ") : "-"}`,
+    `Source: ${payload.source}`,
+    "",
+    "Message:",
+    payload.message,
+  ].join("\n");
+
+  return `mailto:hello@velvetdigital.io?subject=${encodeURIComponent(
+    subject,
+  )}&body=${encodeURIComponent(body)}`;
+}
 
 function ContactPageInner() {
   const params = useSearchParams();
@@ -31,6 +68,7 @@ function ContactPageInner() {
     "idle",
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [usedMailFallback, setUsedMailFallback] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const toggleService = (s: string) =>
@@ -42,25 +80,46 @@ function ContactPageInner() {
     e.preventDefault();
     setStatus("loading");
     setErrorMsg(null);
+    setUsedMailFallback(false);
     const form = new FormData(e.currentTarget);
-    const payload = {
-      name: form.get("name"),
-      email: form.get("email"),
-      company: form.get("company"),
-      budget: form.get("budget"),
+    const payload: ContactPayload = {
+      name: formString(form, "name"),
+      email: formString(form, "email"),
+      company: formString(form, "company"),
+      budget: formString(form, "budget"),
       services: selectedServices,
-      message: form.get("message"),
-      website: form.get("website"),
+      message: formString(form, "message"),
+      website: formString(form, "website"),
       source: `velvetdigital.io/contact?ref=${refSource}`,
+      submittedAt: new Date().toISOString(),
     };
+
+    if (payload.website) {
+      setStatus("sent");
+      return;
+    }
+
+    if (!contactEndpoint) {
+      window.location.href = buildMailto(payload);
+      setUsedMailFallback(true);
+      setStatus("sent");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/contact", {
+      const noCors = contactEndpointMode === "no-cors";
+      const res = await fetch(contactEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: noCors ? "no-cors" : "cors",
+        headers: {
+          "Content-Type": noCors
+            ? "text/plain;charset=utf-8"
+            : "application/json",
+        },
         body: JSON.stringify(payload),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
+      const data = noCors ? {} : await res.json().catch(() => ({}));
+      if (!noCors && !res.ok) {
         setErrorMsg(
           (data as { error?: string }).error ||
             "Something went wrong. Please try again.",
@@ -145,8 +204,9 @@ function ContactPageInner() {
                         Thank you.
                       </h3>
                       <p className="mt-4 text-vd-mute max-w-md mx-auto">
-                        We have received your note and will reply within one
-                        business day from{" "}
+                        {usedMailFallback
+                          ? "Your email draft is ready. Send it from your mail app and we will reply from "
+                          : "We have received your note and will reply within one business day from "}
                         <span className="text-vd-bone">
                           hello@velvetdigital.io
                         </span>
