@@ -1,0 +1,189 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap");
+@import "tailwindcss";
+
+:root {
+  --vd-black: #0a0a0b;
+  --vd-charcoal: #141318;
+  --vd-velvet: #1a0e2e;
+  --vd-velvet-deep: #0e0518;
+  --vd-gold: #d4af37;
+  --vd-gold-bright: #f5d77a;
+  --vd-bone: #ede7dc;
+  --vd-mute: #8a8594;
+
+  --glow-purple: rgba(124, 58, 237, 0.18);
+  --glow-gold: rgba(212, 175, 55, 0.22);
+
+  --background: var(--vd-black);
+  --foreground: var(--vd-bone);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-vd-black: var(--vd-black);
+  --color-vd-charcoal: var(--vd-charcoal);
+  --color-vd-velvet: var(--vd-velvet);
+  --color-vd-velvet-deep: var(--vd-velvet-deep);
+  --color-vd-gold: var(--vd-gold);
+  --color-vd-gold-bright: var(--vd-gold-bright);
+  --color-vd-bone: var(--vd-bone);
+  --color-vd-mute: var(--vd-mute);
+
+  --font-display: "Clash Display", "Inter", system-ui, sans-serif;
+  --font-sans: "Satoshi", "Inter", system-ui, sans-serif;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  background: var(--vd-black);
+  color: var(--vd-bone);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "ss02", "cv01", "cv11";
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: var(--vd-bone);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(
+    100deg,
+    #f5d77a 0%,
+    #d4af37 35%,
+    #b8902a 60%,
+    #f5d77a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-bone-gradient {
+  background: linear-gradient(180deg, #f7f3ea 0%, #cfc8ba 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.bg-velvet-radial {
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 20% 10%,
+      rgba(124, 58, 237, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 85% 80%,
+      rgba(212, 175, 55, 0.08),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0a0a0b 0%, #0e0518 100%);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.border-gold-grad {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--vd-charcoal), var(--vd-charcoal)) padding-box,
+    linear-gradient(135deg, rgba(212, 175, 55, 0.6), rgba(124, 58, 237, 0.25))
+      border-box;
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    100deg,
+    #d4af37 0%,
+    #f5d77a 35%,
+    #ffffff 50%,
+    #f5d77a 65%,
+    #d4af37 100%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, -10px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.animate-glow {
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
