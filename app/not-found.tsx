@@ -1,39 +1,26 @@
-import { GoldButton } from "@/components/ui/GoldButton";
-import { GradientOrb } from "@/components/ui/GradientOrb";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-velvet-radial" />
-      <GradientOrb
-        color="purple"
-        size={600}
-        className="-top-32 -left-32 opacity-70"
-      />
-      <GradientOrb
-        color="gold"
-        size={480}
-        className="-bottom-24 -right-24 opacity-50"
-      />
-
-      <div className="relative text-center px-6 max-w-2xl">
-        <p className="font-display text-[11px] tracking-[0.3em] uppercase text-vd-gold">
-          404 · page not found
+    <main className="min-h-dvh flex items-center justify-center px-md">
+      <div className="text-center max-w-lg">
+        <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold">
+          404
         </p>
-        <h1 className="mt-6 font-display text-6xl md:text-8xl tracking-[-0.03em] text-vd-bone leading-none">
-          Lost in <span className="text-gold-gradient italic">velvet</span>.
+        <h1 className="mt-sm font-serif text-[length:var(--step-3)] leading-[1.1] tracking-[-0.02em] text-ink">
+          Page not found
         </h1>
-        <p className="mt-6 text-vd-mute text-[17px] leading-[1.7]">
-          The page you&apos;re looking for doesn&apos;t exist — or moved
-          somewhere quieter.
+        <p className="mt-md text-ink-2 max-w-[48ch] mx-auto">
+          The page you are looking for does not exist or has moved.
         </p>
-        <div className="mt-10 flex justify-center gap-3">
-          <GoldButton href="/">Back to home</GoldButton>
-          <GoldButton href="/contact" variant="ghost">
-            Get in touch
-          </GoldButton>
-        </div>
+        <Link
+          href="/"
+          className="inline-block mt-lg px-md py-xs bg-ink text-cream text-[length:var(--step--1)] uppercase tracking-[0.08em] rounded-[var(--radius-sm)] hover:bg-umber transition-colors"
+          style={{ transitionDuration: "var(--dur-fast)" }}
+        >
+          Back to home
+        </Link>
       </div>
-    </section>
+    </main>
   );
 }

@@ -1,25 +1,23 @@
-import { Hero } from "@/components/home/Hero";
-import { TrustStrip } from "@/components/home/TrustStrip";
-import { Services } from "@/components/home/Services";
-import { Process } from "@/components/home/Process";
-import { Portfolio } from "@/components/home/Portfolio";
-import { Results } from "@/components/home/Results";
-import { AISection } from "@/components/home/AISection";
-import { Testimonials } from "@/components/home/Testimonials";
-import { FinalCTA } from "@/components/home/FinalCTA";
+import { Hero } from "@/components/sections/Hero";
+import { Positioning } from "@/components/sections/Positioning";
+import { Services } from "@/components/sections/Services";
+import { SelectedCampaigns } from "@/components/sections/SelectedCampaigns";
+import { IndiaGulf } from "@/components/sections/IndiaGulf";
+import { Approach } from "@/components/sections/Approach";
+import { Capabilities } from "@/components/sections/Capabilities";
+import { FinalCta } from "@/components/sections/FinalCta";
 
 export default function HomePage() {
   return (
-    <>
+    <main>
       <Hero />
-      <TrustStrip />
+      <Positioning />
       <Services />
-      <Process />
-      <Portfolio />
-      <Results />
-      <AISection />
-      <Testimonials />
-      <FinalCTA />
-    </>
+      <SelectedCampaigns />
+      <IndiaGulf />
+      <Approach />
+      <Capabilities />
+      <FinalCta />
+    </main>
   );
 }

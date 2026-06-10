@@ -1,147 +1,141 @@
-import { PageHero } from "@/components/ui/PageHero";
-import { GlowCard } from "@/components/ui/GlowCard";
-import { GoldButton } from "@/components/ui/GoldButton";
-import { BookCallButton } from "@/components/ui/BookCallButton";
-import { Palette, Megaphone, Globe, Cpu, Check } from "lucide-react";
-import { FinalCTA } from "@/components/home/FinalCTA";
+import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
+import { EditorialImage } from "@/components/ui/EditorialImage";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { FinalCta } from "@/components/sections/FinalCta";
+import { pageMeta } from "@/lib/seo";
 
-const services = [
+export const metadata = pageMeta({
+  title: "Services — Brand, Content, Performance & Systems · Velvet Digital",
+  description:
+    "Brand identity, editorial content, paid media and automation for fine jewellery and interior brands across the UAE.",
+  path: "/services/",
+});
+
+const disciplines = [
   {
-    id: "branding",
-    icon: Palette,
-    title: "Content & Branding",
-    tagline: "Visual storytelling that builds desire.",
-    body: "We rebuild your visual identity, content engine and tone of voice — then run a monthly studio that ships reels, photoshoots, carousels and stories that look like your brand sold for 10x more.",
-    features: [
-      "Brand identity & guidelines",
-      "Reel & photoshoot direction",
-      "Monthly content production",
-      "Editorial calendar & strategy",
-      "Founder positioning",
-    ],
+    num: "01",
+    id: "brand",
+    title: "Brand & Identity",
+    line: "The foundation everything else is built on.",
+    img: "/images/brand-identity.png",
+    alt: "Cream stationery with a gold wax seal on warm fabric",
+    body: "Positioning, narrative and identity systems. We decide what a brand means before deciding how it looks — the difference between a house with a point of view and a catalogue of products. For a jeweller, that often means moving the brand from “a place that sells stones” to a name a family chooses for a milestone. For an interior practice, from “a service” to a signature.",
   },
   {
+    num: "02",
+    id: "content",
+    title: "Content & Film",
+    line: "Visual storytelling that builds desire.",
+    img: "/images/content-film.png",
+    alt: "A prime camera lens lit by a softbox, warm and low-key",
+    body: "Editorial photography and high-definition macro film, produced as a steady engine rather than occasional bursts. We shoot the way the work deserves to be seen — a diamond’s cut mapped in close detail, the weight of a setting, the grain of a material — and we rotate the creative so a feed never flattens into a product directory. Desire is built, not declared.",
+  },
+  {
+    num: "03",
     id: "performance",
-    icon: Megaphone,
-    title: "Performance Marketing",
-    tagline: "Profitable ads, every month.",
-    body: "Meta, Google, YouTube and TikTok ads engineered around your unit economics — not vanity metrics. Weekly creative refresh, daily optimisation, transparent dashboards.",
-    features: [
-      "Meta & Google Ads",
-      "Creative testing engine",
-      "Landing-page optimisation",
-      "Attribution & dashboards",
-      "Weekly performance reviews",
-    ],
+    title: "Performance",
+    line: "The right buyer, not the most buyers.",
+    img: "/images/performance-streaks.png",
+    alt: "Streaks of gold light sweeping across a dark field",
+    body: "Meta, Google and YouTube, run with restraint and against real numbers. The aim is not broad reach; it is the right person. We build full-funnel — work that earns attention, work that earns consideration (where transparency and provenance matter), and work that turns quiet intent into a private appointment. Reach is easy. The right reach is the discipline.",
   },
   {
-    id: "seo",
-    icon: Globe,
-    title: "SEO + GEO",
-    tagline: "Search dominance for Google and AI.",
-    body: "Traditional SEO meets generative-engine optimisation. We help your brand show up first on Google — and inside ChatGPT, Perplexity and Gemini when buyers research your category.",
-    features: [
-      "Technical SEO audit",
-      "Long-form editorial",
-      "Generative engine optimisation",
-      "Local & international SEO",
-      "Quarterly authority sprints",
-    ],
-  },
-  {
-    id: "ai",
-    icon: Cpu,
-    title: "AI Automation",
-    tagline: "Smart business systems.",
-    body: "We wire your marketing, sales and ops into a single automated engine. WhatsApp bots, AI chat, CRM workflows, lead routing, internal copilots — built for your team, not a template.",
-    features: [
-      "WhatsApp Business automation",
-      "GPT-powered chatbots",
-      "Lead routing & scoring",
-      "CRM workflow design",
-      "Internal AI copilots",
-    ],
+    num: "04",
+    id: "systems",
+    title: "Systems & Automation",
+    line: "The quiet machinery underneath.",
+    img: "/images/systems-nodes.png",
+    alt: "A network of connected gold nodes on a dark ground",
+    body: "Lead routing, a discreet WhatsApp concierge that qualifies an enquiry before it reaches a person, CRM and attribution, and the local-search groundwork that captures high-intent buyers nearby. The machinery that means a serious enquiry is answered well at any hour, and that marketing keeps working when the studio is asleep.",
   },
 ];
 
-export const metadata = {
-  title: "Services — Velvet Digital",
-  description:
-    "Content, performance marketing, SEO, AI automation and premium web experiences for modern brands.",
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: disciplines.map((d, i) => ({
+    "@type": "Service",
+    position: i + 1,
+    name: d.title,
+    description: d.line,
+    serviceType: d.title,
+    provider: {
+      "@type": "Organization",
+      name: "Velvet Digital",
+      url: "https://velvetdigital.io",
+    },
+    areaServed: { "@type": "Country", name: "United Arab Emirates" },
+  })),
 };
+
+function DisciplineBlock({
+  d,
+  index,
+}: {
+  d: (typeof disciplines)[number];
+  index: number;
+}) {
+  const flip = index % 2 === 1;
+  return (
+    <div
+      id={d.id}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-lg lg:gap-2xl items-center scroll-mt-24"
+    >
+      <Reveal className={flip ? "lg:order-2" : undefined}>
+        <EditorialImage
+          src={d.img}
+          alt={d.alt}
+          width={573}
+          height={570}
+          className="aspect-[4/3] w-full"
+          feather={flip ? ["left", "bottom"] : ["right", "bottom"]}
+          parallax
+        />
+      </Reveal>
+      <Reveal delay={0.1} className={flip ? "lg:order-1" : undefined}>
+        <div className="max-w-[46ch]">
+          <span className="font-serif text-[length:var(--step-1)] text-gold leading-none">
+            {d.num}
+          </span>
+          <h2 className="mt-xs font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink">
+            {d.title}
+          </h2>
+          <p className="mt-2xs font-serif italic text-ink-2">{d.line}</p>
+          <p className="mt-md text-ink-2 leading-[1.6]">{d.body}</p>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
 
 export default function ServicesPage() {
   return (
-    <>
-      <PageHero
-        eyebrow="Services"
+    <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <PageHeader
+        eyebrow="What we do"
         title={
           <>
-            A full <span className="text-gold-gradient italic">growth</span>{" "}
-            stack, wrapped in cinematic craft.
+            Four disciplines. One considered{" "}
+            <em className="italic">whole.</em>
           </>
         }
-        description="Five disciplines, one studio. Engaged as a monthly retainer or scoped as a single sprint."
-      >
-        <div className="flex flex-wrap gap-3">
-          <BookCallButton utmSource="services_hero" label="Book a strategy call" />
-          <GoldButton href="/work" variant="ghost">
-            See our work
-          </GoldButton>
-        </div>
-      </PageHero>
+        lead="Most luxury brands are not short on craft. They are short on a digital presence that does the craft justice. That is the gap we work in — four disciplines, run as one coherent practice."
+      />
 
-      <section className="relative py-20 lg:py-28">
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10 flex flex-col gap-6">
-          {services.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <GlowCard
-                key={s.id}
-                glow={i % 2 === 0 ? "purple" : "gold"}
-                className=""
-              >
-                <div
-                  id={s.id}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 lg:p-12 scroll-mt-32"
-                >
-                  <div className="lg:col-span-5">
-                    <div className="inline-flex items-center gap-2 w-fit px-2.5 py-1 rounded-full border border-vd-gold/25 bg-vd-gold/[0.05] text-[10px] tracking-[0.25em] uppercase text-vd-gold">
-                      <Icon size={11} />
-                      0{i + 1}
-                    </div>
-                    <h2 className="mt-5 font-display text-3xl lg:text-5xl tracking-[-0.02em] text-vd-bone leading-[1.05]">
-                      {s.title}
-                    </h2>
-                    <p className="mt-4 text-vd-gold/90 text-sm">{s.tagline}</p>
-                  </div>
-                  <div className="lg:col-span-7 flex flex-col gap-7">
-                    <p className="text-[16px] text-vd-bone/80 leading-[1.75]">
-                      {s.body}
-                    </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                      {s.features.map((f) => (
-                        <li
-                          key={f}
-                          className="flex items-start gap-2.5 text-sm text-vd-mute"
-                        >
-                          <Check
-                            size={14}
-                            className="mt-0.5 text-vd-gold shrink-0"
-                          />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </GlowCard>
-            );
-          })}
+      <Section surface="paper">
+        <div className="flex flex-col gap-2xl lg:gap-3xl">
+          {disciplines.map((d, i) => (
+            <DisciplineBlock key={d.id} d={d} index={i} />
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <FinalCTA />
-    </>
+      <FinalCta />
+    </main>
   );
 }

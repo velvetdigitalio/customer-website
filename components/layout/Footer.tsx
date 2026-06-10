@@ -1,194 +1,179 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
-import { BookCallLink } from "@/components/ui/BookCallButton";
+import { PopupModal } from "react-calendly";
+import { CALENDLY_URL } from "@/lib/calendly";
+import { Wordmark } from "@/components/ui/Wordmark";
 
-function InstagramIcon({ size = 15 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
+const studioLinks = [
+  { label: "Work", href: "/work/" },
+  { label: "Services", href: "/services/" },
+  { label: "Studio", href: "/studio/" },
+  { label: "Journal", href: "/journal/" },
+] as const;
 
-function LinkedinIcon({ size = 15 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
-
-function TwitterIcon({ size = 15 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden
-    >
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-
-const navGroups = [
+const socialLinks = [
   {
-    title: "Studio",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Work", href: "/work" },
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Insights", href: "/insights" },
-    ],
+    label: "Instagram",
+    href: "https://www.instagram.com/velvetdigital.io",
   },
   {
-    title: "Services",
-    links: [
-      { label: "Content & Branding", href: "/services#branding" },
-      { label: "Performance Marketing", href: "/services#performance" },
-      { label: "SEO + GEO", href: "/services#seo" },
-      { label: "AI Automation", href: "/services#ai" },
-    ],
+    label: "Facebook",
+    href: "https://www.facebook.com/people/velvetdigitalio/61590411488979/",
   },
   {
-    title: "Contact",
-    links: [
-      { label: "hello@velvetdigital.io", href: "mailto:hello@velvetdigital.io" },
-      { label: "Book a Strategy Call", href: "calendly" },
-      { label: "Bengaluru, India", href: "#" },
-    ],
+    label: "WhatsApp",
+    href: "https://wa.me/918861184926",
   },
-];
+] as const;
 
 export function Footer() {
+  const [calendlyOpen, setCalendlyOpen] = useState(false);
+  const [rootEl, setRootEl] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setRootEl(document.body);
+  }, []);
+
   return (
-    <footer className="relative mt-20 border-t border-white/[0.05] bg-gradient-to-b from-transparent to-vd-velvet-deep">
-      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-vd-gold/40 to-transparent" />
+    <footer className="bg-umber text-cream">
+      <div className="max-w-[1200px] mx-auto px-md lg:px-lg pt-xl lg:pt-2xl pb-lg lg:pb-xl">
+        {/* Top: wordmark + tagline */}
+        <div className="mb-lg">
+          <Wordmark onDark className="text-[length:var(--step-1)]" />
+          <p className="mt-xs text-cream-2 max-w-[40ch] text-[length:var(--step--1)]">
+            A brand &amp; digital studio for fine jewellery and interiors.
+          </p>
+          <p className="text-cream-2 text-[length:var(--step--1)]">
+            Built in Bengaluru. Made for the Gulf.
+          </p>
+        </div>
 
-      <div className="mx-auto max-w-[1320px] px-6 lg:px-10 py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-          <div className="lg:col-span-5">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden ring-1 ring-vd-gold/30">
-                <Image
-                  src="/logo.png"
-                  alt="Velvet Digital"
-                  fill
-                  sizes="48px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-display text-lg tracking-[0.18em] text-vd-bone">
-                  VELVET
-                </span>
-                <span className="font-display text-xs tracking-[0.3em] text-vd-gold/80 mt-1">
-                  DIGITAL
-                </span>
-              </div>
-            </Link>
-            <p className="mt-8 max-w-md text-[15px] leading-[1.7] text-vd-mute">
-              A luxury growth studio building digital presence, performance
-              marketing and AI automation systems for premium modern brands.
+        {/* Columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-lg sm:gap-xl border-t border-cream/12 pt-lg">
+          {/* Studio column */}
+          <div>
+            <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold mb-xs">
+              Studio
             </p>
-
-            <div className="mt-10 flex items-center gap-3">
-              {[
-                { Icon: InstagramIcon, href: "#", label: "Instagram" },
-                { Icon: LinkedinIcon, href: "#", label: "LinkedIn" },
-                { Icon: TwitterIcon, href: "#", label: "Twitter" },
-              ].map(({ Icon, href, label }) => (
+            <nav aria-label="Footer — Studio" className="flex flex-col gap-2xs">
+              {studioLinks.map((link) => (
                 <Link
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-10 h-10 grid place-items-center rounded-full border border-vd-gold/30 text-vd-gold hover:bg-vd-gold hover:text-vd-black transition-colors duration-500"
+                  key={link.href}
+                  href={link.href}
+                  className="link font-sans text-cream-2 hover:text-cream w-fit"
+                  style={{
+                    "--underline-color": "var(--gold-soft)",
+                    transition:
+                      "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+                  } as React.CSSProperties}
                 >
-                  <Icon size={15} />
+                  <span className="relative">{link.label}</span>
                 </Link>
               ))}
+            </nav>
+          </div>
+
+          {/* Contact column */}
+          <div>
+            <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold mb-xs">
+              Contact
+            </p>
+            <div className="flex flex-col gap-2xs">
+              <a
+                href="mailto:hello@velvetdigital.io"
+                className="font-sans text-cream-2 hover:text-cream w-fit"
+                style={{
+                  transition:
+                    "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                hello@velvetdigital.io
+              </a>
+              <button
+                type="button"
+                onClick={() => setCalendlyOpen(true)}
+                className="font-sans text-cream-2 hover:text-cream w-fit text-left cursor-pointer"
+                style={{
+                  transition:
+                    "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+                }}
+              >
+                Request an audit
+              </button>
+              <p className="text-cream-2 text-[length:var(--step--1)] mt-2xs">
+                Bengaluru, India
+              </p>
             </div>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {navGroups.map((group) => (
-              <div key={group.title}>
-                <h4 className="font-display text-[11px] tracking-[0.3em] text-vd-gold/80 uppercase">
-                  {group.title}
-                </h4>
-                <ul className="mt-5 space-y-3">
-                  {group.links.map((l) => (
-                    <li key={l.label}>
-                      {l.href === "calendly" ? (
-                        <BookCallLink utmSource="footer">
-                          {l.label}
-                        </BookCallLink>
-                      ) : (
-                        <Link
-                          href={l.href}
-                          className="group inline-flex items-center gap-1.5 text-[14px] text-vd-bone/70 hover:text-vd-bone transition-colors duration-300"
-                        >
-                          <span>{l.label}</span>
-                          <ArrowUpRight
-                            size={12}
-                            className="opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300"
-                          />
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-20 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-vd-mute tracking-[0.05em]">
-            © {new Date().getFullYear()} Velvet Digital. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-xs text-vd-mute">
-            <Link href="#" className="hover:text-vd-bone transition-colors">
-              Privacy
-            </Link>
-            <Link href="#" className="hover:text-vd-bone transition-colors">
-              Terms
-            </Link>
-            <span className="inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Available for new projects
-            </span>
+          {/* Social column */}
+          <div>
+            <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold mb-xs">
+              Social
+            </p>
+            <div className="flex flex-col gap-2xs">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-sans text-cream-2 hover:text-cream w-fit"
+                  style={{
+                    transition:
+                      "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+                  }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-cream/12">
+        <div className="max-w-[1200px] mx-auto px-md lg:px-lg py-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-xs">
+          <p className="text-cream-2 text-[length:var(--step--1)]">
+            &copy; 2026 Velvet Digital.
+          </p>
+          <div className="flex gap-md text-[length:var(--step--1)]">
+            <Link
+              href="/privacy/"
+              className="text-cream-2 hover:text-cream"
+              style={{
+                transition:
+                  "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms/"
+              className="text-cream-2 hover:text-cream"
+              style={{
+                transition:
+                  "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              Terms
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Calendly popup */}
+      {rootEl && (
+        <PopupModal
+          url={CALENDLY_URL}
+          onModalClose={() => setCalendlyOpen(false)}
+          open={calendlyOpen}
+          rootElement={rootEl}
+        />
+      )}
     </footer>
   );
 }

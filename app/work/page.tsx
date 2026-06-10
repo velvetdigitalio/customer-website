@@ -1,202 +1,124 @@
-"use client";
+import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/Button";
+import { EditorialImage } from "@/components/ui/EditorialImage";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { FinalCta } from "@/components/sections/FinalCta";
+import { pageMeta } from "@/lib/seo";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
-import { PageHero } from "@/components/ui/PageHero";
-import { FinalCTA } from "@/components/home/FinalCTA";
+export const metadata = pageMeta({
+  title: "Selected Work · Velvet Digital",
+  description:
+    "Campaign concepts and art direction for fine jewellery and interior brands. Concept work, not delivered client results.",
+  path: "/work/",
+});
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
-
-const categories = ["All", "Branding", "Performance", "AI", "Web"] as const;
-type Category = (typeof categories)[number];
-
-const projects: {
-  name: string;
-  industry: string;
-  category: Exclude<Category, "All">;
-  metric: string;
-  metric2: string;
-  hue: number;
-}[] = [
+const concepts = [
   {
-    name: "Aurum Atelier",
-    industry: "Luxury Skincare",
-    category: "Branding",
-    metric: "+340% reach",
-    metric2: "12.4x ROAS",
-    hue: 285,
+    name: "The Bride",
+    img: "/images/campaign-bride.png",
+    alt: "Gold-embroidered bridal silk catching warm light",
+    body: "A bridal campaign concept built around the wedding milestone. The art direction is heritage-led and made for NRI wedding seasons and high-value families — selling the moment a piece belongs to, not the product in isolation. The work centres the occasion: the family, the ceremony, the heirloom in the making.",
   },
   {
-    name: "Maison Nordlux",
-    industry: "Hospitality",
-    category: "Web",
-    metric: "+218% bookings",
-    metric2: "4.2M reach",
-    hue: 30,
+    name: "The Forever Royal",
+    img: "/images/campaign-forever-royal.png",
+    alt: "Burgundy and gold brocade, richly woven",
+    body: "A heritage concept that positions antique gold and certified diamonds as a generational investment. It repositions fine jewellery from commodity to family legacy — provenance, certification and craft brought to the front, so the buyer is choosing an inheritance rather than making a purchase.",
   },
   {
-    name: "Vemara Studios",
-    industry: "Fashion",
-    category: "Branding",
-    metric: "1.2M followers",
-    metric2: "+92% engagement",
-    hue: 320,
-  },
-  {
-    name: "Orbit/9",
-    industry: "AI SaaS",
-    category: "AI",
-    metric: "2,840 leads",
-    metric2: "5.8x ROAS",
-    hue: 250,
-  },
-  {
-    name: "Atelier 88",
-    industry: "Fine Jewelry",
-    category: "Performance",
-    metric: "+460% revenue",
-    metric2: "7.1x ROAS",
-    hue: 18,
-  },
-  {
-    name: "Solara",
-    industry: "DTC Wellness",
-    category: "Performance",
-    metric: "+212% repeat",
-    metric2: "6.4x ROAS",
-    hue: 50,
-  },
-  {
-    name: "Quill & Stone",
-    industry: "Architecture",
-    category: "Web",
-    metric: "+180% inquiries",
-    metric2: "Lighthouse 98",
-    hue: 200,
-  },
-  {
-    name: "Lunarion",
-    industry: "Fragrance",
-    category: "Branding",
-    metric: "+520% reach",
-    metric2: "9.2x ROAS",
-    hue: 270,
-  },
-  {
-    name: "Nexa Concierge",
-    industry: "Premium Services",
-    category: "AI",
-    metric: "82% auto-resolved",
-    metric2: "12h saved/wk",
-    hue: 220,
+    name: "Material & Light",
+    img: "/images/campaign-interiors.png",
+    alt: "Travertine and linen in soft directional daylight",
+    body: "An interiors concept built around material and light. It positions a design practice as a signature rather than a service — the work shown the way the spaces are meant to be experienced, with texture, stone and daylight doing the persuading.",
   },
 ];
 
-export default function WorkPage() {
-  const [active, setActive] = useState<Category>("All");
-  const filtered =
-    active === "All" ? projects : projects.filter((p) => p.category === active);
-
+function ConceptBlock({
+  c,
+  index,
+}: {
+  c: (typeof concepts)[number];
+  index: number;
+}) {
+  const flip = index % 2 === 1;
   return (
-    <>
-      <PageHero
-        eyebrow="Selected Work"
-        title={
-          <>
-            Cinematic case studies for{" "}
-            <span className="text-gold-gradient italic">premium</span> brands.
-          </>
-        }
-        description="A small sample of recent work. Each engagement is private until results are public — these are the ones we can talk about."
-      >
-        <div className="flex flex-wrap gap-2">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setActive(c)}
-              className={`px-4 py-2 rounded-full text-[12px] tracking-[0.1em] uppercase transition-all duration-500 ${
-                active === c
-                  ? "bg-vd-gold text-vd-black border border-vd-gold"
-                  : "text-vd-bone/70 border border-white/10 hover:border-vd-gold/40 hover:text-vd-gold"
-              }`}
-            >
-              {c}
-            </button>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg lg:gap-2xl items-center">
+      <Reveal className={flip ? "lg:order-2" : undefined}>
+        <EditorialImage
+          src={c.img}
+          alt={c.alt}
+          width={533}
+          height={907}
+          className="aspect-[4/5] w-full"
+          scrim="bottom"
+          parallax
+        >
+          <div className="flex h-full flex-col justify-between p-md">
+            <span className="self-start rounded-[2px] bg-[rgba(20,16,12,0.55)] px-xs py-[3px] font-sans text-[length:var(--step--1)] uppercase tracking-[0.14em] text-cream backdrop-blur-[2px]">
+              Concept
+            </span>
+            <h2 className="font-serif text-[length:var(--step-2)] leading-[1.1] tracking-[-0.02em] text-cream">
+              {c.name}
+            </h2>
+          </div>
+        </EditorialImage>
+      </Reveal>
+      <Reveal delay={0.1} className={flip ? "lg:order-1" : undefined}>
+        <div className="max-w-[46ch]">
+          <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold">
+            Campaign concept
+          </p>
+          <h2 className="mt-xs font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink">
+            {c.name}
+          </h2>
+          <p className="mt-md text-ink-2 leading-[1.6]">{c.body}</p>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
+export default function WorkPage() {
+  return (
+    <main>
+      <PageHeader
+        eyebrow="Selected work"
+        title="Campaign concepts."
+        lead="Approaches and art direction we've developed for fine jewellery and interior brands. These are concepts — the thinking and the look — not delivered client results. Selected client work is shared privately on request."
+      />
+
+      <Section surface="paper">
+        <div className="flex flex-col gap-2xl lg:gap-3xl">
+          {concepts.map((c, i) => (
+            <ConceptBlock key={c.name} c={c} index={i} />
           ))}
         </div>
-      </PageHero>
+      </Section>
 
-      <section className="relative py-12 lg:py-20">
-        <div className="mx-auto max-w-[1320px] px-6 lg:px-10">
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p, i) => (
-                <motion.div
-                  key={p.name}
-                  layout
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{
-                    duration: 0.6,
-                    ease: easeOut,
-                    delay: i * 0.04,
-                  }}
-                >
-                  <Link
-                    href="/case-studies"
-                    className="group relative block aspect-[4/5] rounded-2xl overflow-hidden border border-white/[0.06] hover:border-vd-gold/30 transition-colors duration-700"
-                  >
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: `linear-gradient(135deg, hsl(${p.hue},55%,22%) 0%, hsl(${p.hue + 20},65%,8%) 100%)`,
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(245,215,122,0.18),transparent_55%)]" />
-
-                    <div className="absolute top-5 left-5 right-5 flex items-center justify-between">
-                      <span className="text-[10px] tracking-[0.25em] uppercase text-vd-gold/80">
-                        {p.category}
-                      </span>
-                      <span className="text-[10px] tracking-[0.2em] uppercase text-vd-bone/60">
-                        {p.industry}
-                      </span>
-                    </div>
-
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-vd-gold/40 bg-black/30 backdrop-blur-sm grid place-items-center text-vd-gold opacity-80 group-hover:scale-110 transition-transform duration-700">
-                      <Play size={14} fill="currentColor" />
-                    </div>
-
-                    <div className="absolute bottom-5 left-5 right-5">
-                      <h3 className="font-display text-2xl tracking-[-0.02em] text-vd-bone">
-                        {p.name}
-                      </h3>
-                      <div className="mt-3 flex items-center gap-3 text-[11px] text-vd-bone/80">
-                        <span className="px-2 py-1 rounded-full border border-vd-gold/30 bg-black/30 backdrop-blur text-vd-gold">
-                          {p.metric}
-                        </span>
-                        <span className="text-vd-mute">{p.metric2}</span>
-                      </div>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-[12px] text-vd-bone/70 group-hover:text-vd-gold transition-colors">
-                        View case study
-                        <ArrowUpRight
-                          size={12}
-                          className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        />
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+      {/* Honest private-work note */}
+      <Section surface="paper-2">
+        <div className="max-w-[600px]">
+          <Reveal>
+            <h2 className="font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink">
+              Want to see work relevant to your category?
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-md text-ink-2 leading-[1.6] max-w-[52ch]">
+              We share selected client work privately, matched to your category.
+              Request an audit and we'll send relevant examples.
+            </p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <div className="mt-lg">
+              <Button calendly>Request an audit</Button>
+            </div>
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      <FinalCTA />
-    </>
+      <FinalCta />
+    </main>
   );
 }
