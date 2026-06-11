@@ -10,28 +10,42 @@ const services = [
     title: "Brand & Identity",
     img: "/images/brand-identity.png",
     alt: "Cream stationery with a gold wax seal on warm fabric",
-    desc: "Positioning, narrative and identity systems — so a brand reads as a house with a point of view, not a catalogue of products.",
+    desc: "Positioning, narrative, identity systems, and the website that carries them. We decide what a brand means before deciding how it looks.",
   },
   {
     num: "02",
     title: "Content & Film",
     img: "/images/content-film.png",
     alt: "A prime camera lens lit by a softbox, warm and low-key",
-    desc: "Editorial photography and macro film, produced as a steady engine. We shoot the work the way it deserves to be seen.",
+    desc: "Editorial photography and high-definition macro film as a steady engine — craft shown the way it deserves to be seen.",
   },
   {
     num: "03",
-    title: "Performance",
-    img: "/images/performance-streaks.png",
-    alt: "Streaks of gold light sweeping across a dark field",
-    desc: "Meta, Google and YouTube, run with restraint — built to reach the right buyer, not the most buyers.",
+    title: "Social & Community",
+    img: "/images/social-community.png",
+    alt: "Points of light connected across a dark field — a network",
+    desc: "Running the feed as an editorial publication, not a product directory — fresh creative, consistent rhythm, an audience that holds.",
   },
   {
     num: "04",
+    title: "Performance & Discovery",
+    img: "/images/performance-streaks.png",
+    alt: "Streaks of gold light sweeping across a dark field",
+    desc: "Paid social and search against real numbers, plus the local-search groundwork that captures high-intent buyers nearby.",
+  },
+  {
+    num: "05",
+    title: "AI Content & Concept Imagery",
+    img: "/images/ai-concept.png",
+    alt: "A flowing field of fine gold particles, generative and dynamic",
+    desc: "AI-assisted concept imagery and content to explore directions and produce at pace — used to make and explore, never to fake.",
+  },
+  {
+    num: "06",
     title: "Systems & Automation",
     img: "/images/systems-nodes.png",
-    alt: "A network of connected gold nodes on a dark ground",
-    desc: "Lead routing, a discreet WhatsApp concierge, CRM and attribution — the quiet machinery that works while the studio sleeps.",
+    alt: "A lattice of connected gold nodes on a dark ground",
+    desc: "Lead routing, a discreet WhatsApp concierge that qualifies an enquiry before it reaches a person, CRM and attribution — so the work compounds.",
   },
 ];
 
@@ -46,7 +60,7 @@ export function Services() {
         </Reveal>
         <Reveal delay={0.08}>
           <Heading level="h2" accent="whole" onDark className="mt-md">
-            Four disciplines. One considered whole.
+            Six disciplines. One considered whole.
           </Heading>
         </Reveal>
         <Reveal delay={0.12}>
@@ -57,10 +71,10 @@ export function Services() {
         </Reveal>
       </div>
 
-      <div className="mt-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg lg:gap-md">
+      <div className="mt-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md sm:gap-lg auto-rows-fr">
         {services.map((s, i) => (
-          <Reveal key={s.num} delay={i * 0.1}>
-            <article className="flex flex-col">
+          <Reveal key={s.num} delay={i * 0.08} className="h-full">
+            <article className="flex flex-col h-full">
               <EditorialImage
                 src={s.img}
                 alt={s.alt}

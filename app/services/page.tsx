@@ -17,10 +17,10 @@ const disciplines = [
     num: "01",
     id: "brand",
     title: "Brand & Identity",
-    line: "The foundation everything else is built on.",
+    line: "The foundation everything is built on.",
     img: "/images/brand-identity.png",
     alt: "Cream stationery with a gold wax seal on warm fabric",
-    body: "Positioning, narrative and identity systems. We decide what a brand means before deciding how it looks — the difference between a house with a point of view and a catalogue of products. For a jeweller, that often means moving the brand from “a place that sells stones” to a name a family chooses for a milestone. For an interior practice, from “a service” to a signature.",
+    body: "Positioning, narrative and identity systems — and the website that carries them. We decide what a brand means before deciding how it looks: the difference between a house with a point of view and a catalogue of products. For a jeweller, that often means moving the brand from “a place that sells stones” to a name a family chooses for a milestone. For an interior practice, from “a service” to a signature.",
   },
   {
     num: "02",
@@ -33,20 +33,38 @@ const disciplines = [
   },
   {
     num: "03",
-    id: "performance",
-    title: "Performance",
-    line: "The right buyer, not the most buyers.",
-    img: "/images/performance-streaks.png",
-    alt: "Streaks of gold light sweeping across a dark field",
-    body: "Meta, Google and YouTube, run with restraint and against real numbers. The aim is not broad reach; it is the right person. We build full-funnel — work that earns attention, work that earns consideration (where transparency and provenance matter), and work that turns quiet intent into a private appointment. Reach is easy. The right reach is the discipline.",
+    id: "social",
+    title: "Social & Community",
+    line: "Presence that compounds.",
+    img: "/images/social-community.png",
+    alt: "Points of light connected across a dark field — a network",
+    body: "The feed is where many luxury brands quietly undo their own work — a flat product directory, posted whenever there is a gap. We run it as an editorial publication instead: a consistent rhythm, creative that stays fresh, and a point of view that gives an audience a reason to keep watching. Presence is not a burst of activity before a launch; it is the steady, compounding result of showing up well, month after month, until the audience holds.",
   },
   {
     num: "04",
+    id: "performance",
+    title: "Performance & Discovery",
+    line: "The right buyer, not the most buyers.",
+    img: "/images/performance-streaks.png",
+    alt: "Streaks of gold light sweeping across a dark field",
+    body: "Paid social and search — Meta, Google and YouTube — run with restraint and against real numbers. The aim is not broad reach; it is the right person. We build full-funnel: work that earns attention, work that earns consideration (where transparency and provenance matter), and work that turns quiet intent into a private appointment. And we lay the local-search groundwork, so the high-intent buyer searching nearby finds you first. Reach is easy; the right reach is the discipline.",
+  },
+  {
+    num: "05",
+    id: "ai",
+    title: "AI Content & Concept Imagery",
+    line: "Modern production, made with judgment.",
+    img: "/images/ai-concept.png",
+    alt: "A flowing field of fine gold particles, generative and dynamic",
+    body: "Generative tools have changed what a small studio can explore and produce. We use AI-assisted concept imagery and content to test directions quickly, visualise a campaign before a shoot, and keep a content engine fed at pace. The discipline is in the limit: AI is for making and exploring, never for faking a relationship or passing off a person who does not exist. Used with judgment it extends the craft; used carelessly it cheapens it — and we stay on the right side of that line.",
+  },
+  {
+    num: "06",
     id: "systems",
     title: "Systems & Automation",
     line: "The quiet machinery underneath.",
     img: "/images/systems-nodes.png",
-    alt: "A network of connected gold nodes on a dark ground",
+    alt: "A lattice of connected gold nodes on a dark ground",
     body: "Lead routing, a discreet WhatsApp concierge that qualifies an enquiry before it reaches a person, CRM and attribution, and the local-search groundwork that captures high-intent buyers nearby. The machinery that means a serious enquiry is answered well at any hour, and that marketing keeps working when the studio is asleep.",
   },
 ];
@@ -120,11 +138,11 @@ export default function ServicesPage() {
         eyebrow="What we do"
         title={
           <>
-            Four disciplines. One considered{" "}
+            Six disciplines. One considered{" "}
             <em className="italic">whole.</em>
           </>
         }
-        lead="Most luxury brands are not short on craft. They are short on a digital presence that does the craft justice. That is the gap we work in — four disciplines, run as one coherent practice."
+        lead="Most luxury brands are not short on craft. They are short on a digital presence that does the craft justice. That is the gap we work in — six disciplines, run as one coherent practice."
       />
 
       <Section surface="paper">
