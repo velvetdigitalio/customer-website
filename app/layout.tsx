@@ -27,9 +27,6 @@ export const metadata: Metadata = {
       "A brand & digital studio for fine jewellery houses and interior designers in the UAE. Built in India, made to Gulf standards.",
     path: "/",
   }),
-  icons: {
-    icon: "/logo.png",
-  },
 };
 
 const organizationLd = {
@@ -37,7 +34,7 @@ const organizationLd = {
   "@type": "Organization",
   name: "Velvet Digital",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
+  logo: `${SITE_URL}/brand/lockup.png`,
   image: `${SITE_URL}/og.png`,
   description:
     "A brand & digital studio for fine jewellery houses and interior designers in the UAE. Built in India, made to Gulf standards.",

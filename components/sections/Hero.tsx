@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { TextLink } from "@/components/ui/TextLink";
+import { VelvetMark } from "@/components/ui/VelvetMark";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -114,22 +115,13 @@ export function Hero() {
       {/* ── Grain (static, always visible) ── */}
       <div className="hero-grain absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-      {/* ── V glyph (static, always visible) ── */}
+      {/* ── V mark (static, always visible) ── */}
       <div
         className="absolute pointer-events-none select-none top-[8%] right-[-8%] md:top-1/2 md:left-1/2 md:right-auto md:-translate-x-1/2 md:-translate-y-1/2"
         aria-hidden="true"
+        style={{ width: "clamp(14rem, 38vw, 44rem)", opacity: 0.05 }}
       >
-        <span
-          className="font-serif block"
-          style={{
-            fontSize: "clamp(16rem, 40vw, 48rem)",
-            lineHeight: 0.85,
-            color: "var(--cream)",
-            opacity: 0.045,
-          }}
-        >
-          V
-        </span>
+        <VelvetMark className="w-full h-auto text-cream" />
       </div>
 
       {/* ── Hairline rules (static) ── */}

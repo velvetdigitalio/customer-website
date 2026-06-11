@@ -7,6 +7,7 @@ import { PopupModal } from "react-calendly";
 import { cn } from "@/lib/cn";
 import { CALENDLY_URL } from "@/lib/calendly";
 import { Wordmark } from "@/components/ui/Wordmark";
+import { VelvetMark } from "@/components/ui/VelvetMark";
 
 const NAV_LINKS = [
   { label: "Work", href: "/work/" },
@@ -89,20 +90,22 @@ export function Header() {
         }}
       >
         <div className="max-w-[1200px] mx-auto px-md lg:px-lg flex items-center justify-between h-12 lg:h-14">
-          {/* [CLIENT-TODO: replace text lockup with real vector mark] */}
           <Link
             href="/"
-            className="header-wordmark inline-flex flex-col leading-none text-[length:var(--step--1)] lg:text-[length:var(--step-0)]"
+            className="header-wordmark inline-flex items-center gap-[0.55em] leading-none text-[length:var(--step--1)] lg:text-[length:var(--step-0)]"
             aria-label="Velvet Digital — home"
           >
-            <span className="font-serif font-medium tracking-[0.18em] text-[length:inherit]">
-              VELVET
-            </span>
-            <span
-              className="header-wordmark-sub font-sans font-normal tracking-[0.28em] uppercase"
-              style={{ fontSize: "0.55em", marginTop: "0.2em" }}
-            >
-              Digital
+            <VelvetMark className="w-[1.6em] h-[1.6em] shrink-0" />
+            <span className="inline-flex flex-col leading-none">
+              <span className="font-serif font-medium tracking-[0.18em] text-[length:inherit]">
+                VELVET
+              </span>
+              <span
+                className="header-wordmark-sub font-sans font-normal tracking-[0.28em] uppercase"
+                style={{ fontSize: "0.55em", marginTop: "0.2em" }}
+              >
+                Digital
+              </span>
             </span>
           </Link>
 

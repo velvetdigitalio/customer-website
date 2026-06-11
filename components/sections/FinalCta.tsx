@@ -2,25 +2,18 @@ import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { VelvetMark } from "@/components/ui/VelvetMark";
 
 export function FinalCta() {
   return (
     <Section surface="umber" className="relative overflow-hidden">
-      <span
-        className="absolute pointer-events-none select-none font-serif"
-        style={{
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "clamp(14rem, 30vw, 26rem)",
-          lineHeight: 0.85,
-          opacity: 0.035,
-          color: "var(--cream)",
-        }}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+        style={{ width: "clamp(12rem, 28vw, 24rem)", opacity: 0.04 }}
         aria-hidden="true"
       >
-        V
-      </span>
+        <VelvetMark className="w-full h-auto text-cream" />
+      </div>
       <div className="relative max-w-[600px] mx-auto text-center">
         <Reveal>
           <Eyebrow onDark className="justify-center">Working together</Eyebrow>
