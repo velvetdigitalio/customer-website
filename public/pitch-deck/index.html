@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Velvet Dossier — Velvet Digital</title>
+<meta name="description" content="Brand, content, and digital systems for fine jewellery and interiors.">
+<meta property="og:title" content="The Velvet Dossier">
+<meta property="og:description" content="Brand, content, and digital systems for fine jewellery and interiors.">
+<meta property="og:image" content="assets/slide-01.jpg">
+<style>
+  @font-face { font-family:'SS4'; src:url('fonts/ss4-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'SS4'; src:url('fonts/ss4-400i.woff2') format('woff2'); font-weight:400; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Inter'; src:url('fonts/inter-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Inter'; src:url('fonts/inter-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+
+  :root{
+    --cream:#f1ead9; --ink:#e7e1d4; --muted:#b9b0a0;
+    --gold:#c9a45c; --gold-soft:#d8b878;
+    --rule:rgba(205,176,128,.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-snap-type:y mandatory;}
+  body{background:#0d0804;font-family:'Inter',sans-serif;}
+
+  .slide{
+    height:100svh;width:100vw;
+    scroll-snap-align:start;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;position:relative;
+  }
+  /* every slide is a fixed 1280x720 stage, scaled by JS to fit viewport */
+  .stage{
+    width:1280px;height:720px;flex:none;
+    position:relative;overflow:hidden;
+    transform-origin:center center;
+  }
+  .stage img.full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+
+  /* ---- personalization overlays on image slides ---- */
+  .prepared{
+    position:absolute;left:0;right:0;top:69%;
+    text-align:center;
+    font-family:'SS4',serif;font-style:italic;
+    font-size:24px;color:var(--gold-soft);
+    letter-spacing:.02em;
+    opacity:0;transition:opacity 1.2s ease .4s;
+  }
+  .prepared.show{opacity:1;}
+  .closing-cta{
+    position:absolute;left:56.2%;top:92.4%;
+    display:none;
+    font-family:'Inter';font-weight:500;font-size:16px;letter-spacing:.08em;
+    color:#15100a;background:var(--gold);
+    padding:9px 24px;border-radius:2px;text-decoration:none;
+  }
+  .closing-cta.show{display:inline-block;}
+  .closing-cta span{font-family:'SS4',serif;}
+
+  /* ---- pricing slides (HTML) ---- */
+  .pricing{
+    background-image:url('assets/pricing-bg.jpg');
+    background-size:cover;background-position:center;
+    color:var(--ink);
+  }
+  .inner{position:relative;z-index:2;height:100%;padding:64px 92px 52px;display:flex;flex-direction:column;}
+  .eyebrow{font-family:'SS4',serif;font-size:16px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  h1{font-family:'SS4',serif;font-weight:400;color:var(--cream);font-size:64px;line-height:1.04;letter-spacing:.005em;margin-bottom:8px;}
+  h1 .g{color:var(--gold-soft);}
+  .split{display:flex;flex:1;gap:64px;margin-top:34px;}
+  .price-col{width:392px;flex:none;padding-right:56px;border-right:1px solid var(--rule);}
+  .copy-col{flex:1;padding-top:6px;}
+  .label{font-family:'Inter';font-weight:500;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .anchor{font-family:'SS4',serif;font-size:27px;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(201,164,92,.65);text-decoration-thickness:1.5px;margin-bottom:30px;}
+  .anchor span{font-size:18px;}
+  .rate{font-family:'SS4',serif;font-size:50px;color:var(--gold);line-height:1.05;}
+  .rate span{font-size:26px;color:var(--gold);}
+  .footnote{font-family:'Inter';font-size:13.5px;color:var(--muted);margin-top:18px;letter-spacing:.02em;}
+  .lede{font-family:'SS4',serif;font-size:30px;line-height:1.38;color:var(--cream);max-width:620px;margin-bottom:26px;}
+  .sub{font-size:19px;line-height:1.6;color:var(--ink);max-width:600px;margin-bottom:36px;}
+  .inc-label{font-family:'Inter';font-weight:500;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  .inc{font-size:18.5px;line-height:1.75;color:var(--ink);max-width:600px;padding-top:22px;border-top:1px solid var(--rule);}
+  .closing{font-family:'SS4',serif;font-style:italic;font-size:25px;color:var(--cream);text-align:center;letter-spacing:.01em;margin-top:auto;padding-top:24px;}
+  .menu{flex:1;margin-top:20px;min-height:0;overflow:hidden;display:flex;flex-direction:column;}
+  .row{display:flex;align-items:center;gap:56px;padding:20px 0;border-top:1px solid var(--rule);flex:1;min-height:0;}
+  .row:last-of-type{border-bottom:1px solid var(--rule);}
+  .row-name{width:330px;flex:none;}
+  .row-name h3{font-family:'SS4',serif;font-weight:400;font-size:27px;color:var(--cream);line-height:1.15;margin-bottom:6px;}
+  .row-price{width:248px;flex:none;}
+  .row-anchor{font-family:'SS4',serif;font-size:16px;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(201,164,92,.6);text-decoration-thickness:1px;margin-bottom:3px;}
+  .row-rate{font-family:'SS4',serif;font-size:27px;color:var(--gold);}
+  .row-desc{flex:1;font-size:15.5px;line-height:1.5;color:var(--ink);}
+  .mark{position:absolute;right:40px;bottom:30px;z-index:3;height:44px;width:44px;opacity:.95;}
+  .menu-foot{display:flex;justify-content:center;align-items:baseline;margin-top:auto;padding-top:16px;}
+  .menu-foot .closing3{font-family:'SS4',serif;font-style:italic;font-size:22px;color:var(--cream);}
+</style>
+</head>
+<body>
+
+<!-- 1. Cover (personalized) -->
+<section class="slide"><div class="stage">
+  <img class="full" src="assets/slide-01.jpg" alt="Luxury grows quietly — The Velvet Dossier cover">
+  <div class="prepared" id="prepared-line"></div>
+</div></section>
+
+<!-- 2–6. Story slides -->
+<section class="slide"><div class="stage"><img class="full" src="assets/slide-02.jpg" alt="The craft gap concept model"></div></section>
+<section class="slide"><div class="stage"><img class="full" src="assets/slide-03.jpg" alt="Escaping the catalogue approach"></div></section>
+<section class="slide"><div class="stage"><img class="full" src="assets/slide-04.jpg" alt="Four disciplines, one considered whole"></div></section>
+<section class="slide"><div class="stage"><img class="full" src="assets/slide-05.jpg" alt="Art direction built for milestones"></div></section>
+<section class="slide"><div class="stage"><img class="full" src="assets/slide-06.jpg" alt="Proof — results"></div></section>
+
+<!-- 7. Brand & Content -->
+<section class="slide"><div class="stage pricing">
+  <div class="inner">
+    <div class="eyebrow">Monthly Engagement — I</div>
+    <h1>Brand &amp; Content</h1>
+    <div class="split">
+      <div class="price-col">
+        <div class="label">Typical engagement</div>
+        <div class="anchor">AED 14,000 <span>/ mo</span></div>
+        <div class="label" style="color:var(--gold)">Founding partner rate</div>
+        <div class="rate">AED 10,000 <span>/ mo</span></div>
+        <div class="footnote">Props, styling, and influencer fees billed separately.</div>
+      </div>
+      <div class="copy-col">
+        <div class="lede">A steady content engine built around your craft, not around trends.</div>
+        <div class="sub">For brands whose products deserve art direction, narrative, and consistency.</div>
+        <div class="inc-label">The engagement includes</div>
+        <div class="inc">Monthly strategy; twelve premium reels and carousels; one full-day shoot, or two half-days; planning, copy and scheduling; influencer and UGC coordination.</div>
+      </div>
+    </div>
+    <div class="closing">Your brand begins to read like a house with a point of view — not a catalogue.</div>
+    <svg class="mark" viewBox="70 75 260 260" xmlns="http://www.w3.org/2000/svg"><path fill="#c9a45c" d="M 95 98 L 183 106 C 193 164, 206 227, 222 280 C 223 285, 225 290, 227 294 C 232 286, 236 277, 240 266 C 257 215, 270 156, 276 104 L 305 97 C 292 166, 269 250, 243 304 C 239 312, 232 316, 226 316 C 218 316, 211 310, 205 298 C 177 239, 123 153, 95 98 Z"/></svg>
+  </div>
+</div></section>
+
+<!-- 8. Performance -->
+<section class="slide"><div class="stage pricing">
+  <div class="inner">
+    <div class="eyebrow">Monthly Engagement — II</div>
+    <h1>Performance</h1>
+    <div class="split">
+      <div class="price-col">
+        <div class="label">Typical engagement</div>
+        <div class="anchor">AED 5,500 <span>/ mo</span></div>
+        <div class="label" style="color:var(--gold)">Founding partner rate</div>
+        <div class="rate">AED 3,000 <span>/ mo</span></div>
+        <div class="footnote">Ad spend billed separately.</div>
+      </div>
+      <div class="copy-col">
+        <div class="lede">Paid media executed with restraint.</div>
+        <div class="sub">Designed to reach buyers who spend — not simply generate clicks.</div>
+        <div class="inc-label">The engagement includes</div>
+        <div class="inc">Funnel strategy and Meta campaign management; audience development and creative testing; lead tracking and monthly reporting.</div>
+      </div>
+    </div>
+    <div class="closing">Fewer, better enquiries — and a clear view of where each one came from.</div>
+    <svg class="mark" viewBox="70 75 260 260" xmlns="http://www.w3.org/2000/svg"><path fill="#c9a45c" d="M 95 98 L 183 106 C 193 164, 206 227, 222 280 C 223 285, 225 290, 227 294 C 232 286, 236 277, 240 266 C 257 215, 270 156, 276 104 L 305 97 C 292 166, 269 250, 243 304 C 239 312, 232 316, 226 316 C 218 316, 211 310, 205 298 C 177 239, 123 153, 95 98 Z"/></svg>
+  </div>
+</div></section>
+
+<!-- 9. Lead Engine -->
+<section class="slide"><div class="stage pricing">
+  <div class="inner">
+    <div class="eyebrow">Monthly Engagement — III</div>
+    <h1>Lead Engine</h1>
+    <div class="split">
+      <div class="price-col">
+        <div class="label">Typical engagement</div>
+        <div class="anchor">AED 7,000 <span>/ mo</span></div>
+        <div class="label" style="color:var(--gold)">Founding partner rate</div>
+        <div class="rate">AED 5,000 <span>/ mo</span></div>
+      </div>
+      <div class="copy-col">
+        <div class="lede">Automation that works the bottom of the funnel.</div>
+        <div class="sub">Every enquiry answered, qualified, and followed up — without a person watching the inbox.</div>
+        <div class="inc-label">The engagement includes</div>
+        <div class="inc">WhatsApp automation and concierge flows; Instagram DM and comment automation; AI-managed Google reviews — requests and responses; lead routing into one pipeline.</div>
+      </div>
+    </div>
+    <div class="closing">Every enquiry met — quietly, immediately, every time.</div>
+    <svg class="mark" viewBox="70 75 260 260" xmlns="http://www.w3.org/2000/svg"><path fill="#c9a45c" d="M 95 98 L 183 106 C 193 164, 206 227, 222 280 C 223 285, 225 290, 227 294 C 232 286, 236 277, 240 266 C 257 215, 270 156, 276 104 L 305 97 C 292 166, 269 250, 243 304 C 239 312, 232 316, 226 316 C 218 316, 211 310, 205 298 C 177 239, 123 153, 95 98 Z"/></svg>
+  </div>
+</div></section>
+
+<!-- 10. One-Time Add-Ons -->
+<section class="slide"><div class="stage pricing">
+  <div class="inner">
+    <div class="eyebrow">One-Time Add-Ons</div>
+    <h1 style="font-size:48px;"><span class="g">Start with what you need.</span><br>Add as it works.</h1>
+    <div class="menu">
+      <div class="row">
+        <div class="row-name"><h3>Brand Website</h3></div>
+        <div class="row-price"><div class="row-anchor">AED 8,000</div><div class="row-rate">AED 5,000</div></div>
+        <div class="row-desc">Luxury website with brand narrative, lead capture, and conversion structure.</div>
+      </div>
+      <div class="row">
+        <div class="row-name"><h3>E-Commerce /<br>Catalogue System</h3></div>
+        <div class="row-price"><div class="row-anchor">AED 15,000</div><div class="row-rate">From AED 10,000</div></div>
+        <div class="row-desc">Product catalogue, collections, enquiry flow, and inventory-ready structure.</div>
+      </div>
+      <div class="row">
+        <div class="row-name"><h3>Signature Brand Film</h3></div>
+        <div class="row-price"><div class="row-anchor">AED 12,000</div><div class="row-rate">AED 8,000</div></div>
+        <div class="row-desc">One 60–90 second editorial film built around craft, materials, process, and story — for website heroes, paid media, and showroom displays.</div>
+      </div>
+    </div>
+    <div class="menu-foot"><div class="closing3">No lock-in to everything at once. Begin with one engine and build up.</div></div>
+    <svg class="mark" viewBox="70 75 260 260" xmlns="http://www.w3.org/2000/svg"><path fill="#c9a45c" d="M 95 98 L 183 106 C 193 164, 206 227, 222 280 C 223 285, 225 290, 227 294 C 232 286, 236 277, 240 266 C 257 215, 270 156, 276 104 L 305 97 C 292 166, 269 250, 243 304 C 239 312, 232 316, 226 316 C 218 316, 211 310, 205 298 C 177 239, 123 153, 95 98 Z"/></svg>
+  </div>
+</div></section>
+
+<!-- 11. Closing (personalized CTA) -->
+<section class="slide"><div class="stage">
+  <img class="full" src="assets/slide-07.jpg" alt="Start with an audit — contact Velvet Digital">
+  <a class="closing-cta" id="cta-btn" href="mailto:hello@velvetdigital.io">Start with an audit</a>
+</div></section>
+
+<script>
+/* ================= CONFIG ================= */
+const CONFIG = {
+  calendlyUrl: "https://calendly.com/yj291197/30min",            // CLIENT-TODO: e.g. "https://calendly.com/velvetdigital/audit" — if empty, CTA falls back to mailto
+  goatcounterCode: "velvetdigital"         // CLIENT-TODO: e.g. "velvetdigital" for velvetdigital.goatcounter.com — if empty, no analytics
+};
+/* ========================================== */
+
+/* ---- decode ?c= payload: base64url of JSON {n:"Name", i:"jewellery"|"interiors"} ---- */
+function decodeClient(){
+  try{
+    const raw = new URLSearchParams(location.search).get('c');
+    if(!raw) return null;
+    const b64 = raw.replace(/-/g,'+').replace(/_/g,'/');
+    const json = decodeURIComponent(escape(atob(b64)));
+    const data = JSON.parse(json);
+    if(typeof data.n !== 'string' || !data.n.trim() || data.n.length > 80) return null;
+    return { name: data.n.trim(), industry: (data.i === 'interiors' ? 'interiors' : 'jewellery') };
+  }catch(e){ return null; }
+}
+
+const client = decodeClient();
+
+if(client){
+  const monthYear = new Date().toLocaleDateString('en-GB', {month:'long', year:'numeric'});
+  const line = document.getElementById('prepared-line');
+  line.textContent = `Prepared for ${client.name} — ${monthYear}`;   // textContent only: no HTML injection
+  requestAnimationFrame(()=> line.classList.add('show'));
+  document.title = `The Velvet Dossier — ${client.name}`;
+}
+
+/* ---- closing CTA ---- */
+const cta = document.getElementById('cta-btn');
+if(CONFIG.calendlyUrl){ cta.href = CONFIG.calendlyUrl; cta.target = "_blank"; cta.rel = "noopener"; }
+cta.classList.add('show');
+
+/* ---- scale every 1280x720 stage to the viewport ---- */
+function fit(){
+  const s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+  document.querySelectorAll('.stage').forEach(el => { el.style.transform = `scale(${s})`; });
+}
+window.addEventListener('resize', fit); fit();
+
+/* ---- optional analytics: deck open + per-slide depth ---- */
+if(CONFIG.goatcounterCode){
+  const gc = document.createElement('script');
+  gc.dataset.goatcounter = `https://${CONFIG.goatcounterCode}.goatcounter.com/count`;
+  gc.async = true; gc.src = "//gc.zgo.at/count.js";
+  document.body.appendChild(gc);
+
+  const tag = client ? client.name : 'generic';
+  const seen = new Set();
+  const slides = [...document.querySelectorAll('.slide')];
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const idx = slides.indexOf(en.target)+1;
+        if(!seen.has(idx) && window.goatcounter && window.goatcounter.count){
+          seen.add(idx);
+          window.goatcounter.count({ path:`pitch-deck/slide-${String(idx).padStart(2,'0')}`, title:tag, event:true });
+        }
+      }
+    });
+  }, {threshold:.6});
+  slides.forEach(s=>io.observe(s));
+}
+</script>
+</body>
+</html>
