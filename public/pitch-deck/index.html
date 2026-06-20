@@ -3,11 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/apple-icon.png">
 <title>The Velvet Dossier — Velvet Digital</title>
 <meta name="description" content="Brand, content, and digital systems for fine jewellery and interiors.">
-<meta property="og:title" content="The Velvet Dossier">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Velvet Digital">
+<meta property="og:title" content="The Velvet Dossier — Velvet Digital">
 <meta property="og:description" content="Brand, content, and digital systems for fine jewellery and interiors.">
-<meta property="og:image" content="assets/slide-01.jpg">
+<meta property="og:image" content="https://velvetdigital.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Velvet Dossier — Velvet Digital">
+<meta name="twitter:description" content="Brand, content, and digital systems for fine jewellery and interiors.">
+<meta name="twitter:image" content="https://velvetdigital.io/og.png">
 <style>
   @font-face { font-family:'SS4'; src:url('fonts/ss4-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
   @font-face { font-family:'SS4'; src:url('fonts/ss4-400i.woff2') format('woff2'); font-weight:400; font-style:italic; font-display:swap; }
@@ -225,16 +236,25 @@ const CONFIG = {
 };
 /* ========================================== */
 
-/* ---- decode ?c= payload: base64url of JSON {n:"Name", i:"jewellery"|"interiors"} ---- */
+/* ---- decode ?c= payload ----
+   New (short) links: ?c = base64url(name), industry optional via ?i=i|interiors.
+   Legacy links: ?c = base64url(JSON {n,i}) — still accepted. ---- */
 function decodeClient(){
   try{
-    const raw = new URLSearchParams(location.search).get('c');
+    const p = new URLSearchParams(location.search);
+    const raw = p.get('c');
     if(!raw) return null;
-    const b64 = raw.replace(/-/g,'+').replace(/_/g,'/');
-    const json = decodeURIComponent(escape(atob(b64)));
-    const data = JSON.parse(json);
-    if(typeof data.n !== 'string' || !data.n.trim() || data.n.length > 80) return null;
-    return { name: data.n.trim(), industry: (data.i === 'interiors' ? 'interiors' : 'jewellery') };
+    const dec = decodeURIComponent(escape(atob(raw.replace(/-/g,'+').replace(/_/g,'/'))));
+    let name, ind;
+    if(dec.charAt(0) === '{'){               // legacy: base64 of JSON {n,i}
+      const data = JSON.parse(dec);
+      name = data.n; ind = data.i;
+    }else{                                   // new: base64 of the name only
+      name = dec; ind = p.get('i');
+    }
+    if(typeof name !== 'string' || !name.trim() || name.length > 80) return null;
+    const interiors = ind === 'interiors' || ind === 'int' || ind === 'i';
+    return { name: name.trim(), industry: interiors ? 'interiors' : 'jewellery' };
   }catch(e){ return null; }
 }
 
@@ -260,28 +280,72 @@ function fit(){
 }
 window.addEventListener('resize', fit); fit();
 
-/* ---- optional analytics: deck open + per-slide depth ---- */
+/* ---- analytics: per-recipient open, slide-depth funnel, CTA, engagement time ----
+   GoatCounter strips query strings, so we scope everything under a path built from
+   the recipient name: /pitch-deck/<slug>. Slide depth is sent as PAGEVIEWS (not
+   events) so it shows in the main dashboard as a readable funnel — you can see how
+   far each client scrolled and where they dropped off. The CTA click and an
+   engagement-time bucket are sent as events. ---- */
 if(CONFIG.goatcounterCode){
+  const name = client ? client.name : 'generic';
+  const slug = name.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40) || 'generic';
+  const base = `/pitch-deck/${slug}`;
+
+  // Suppress count.js's automatic pageview; we send our own client-scoped one.
+  window.goatcounter = { no_onload: true };
+
   const gc = document.createElement('script');
   gc.dataset.goatcounter = `https://${CONFIG.goatcounterCode}.goatcounter.com/count`;
   gc.async = true; gc.src = "//gc.zgo.at/count.js";
   document.body.appendChild(gc);
 
-  const tag = client ? client.name : 'generic';
+  // Tiny queue so nothing fired before count.js loads is lost (fixes the race).
+  const queue = [];
+  function track(opts){
+    if(window.goatcounter && window.goatcounter.count){ window.goatcounter.count(opts); }
+    else { queue.push(opts); }
+  }
+  gc.addEventListener('load', ()=>{ queue.splice(0).forEach(o=>window.goatcounter.count(o)); });
+
+  // 1) Deck opened — one row per recipient; repeat opens show as extra visits.
+  track({ path: base, title: `Deck — ${name}` });
+
+  // 2) Slide-depth funnel — each slide counted once, as a pageview.
   const seen = new Set();
   const slides = [...document.querySelectorAll('.slide')];
   const io = new IntersectionObserver(entries=>{
     entries.forEach(en=>{
       if(en.isIntersecting){
         const idx = slides.indexOf(en.target)+1;
-        if(!seen.has(idx) && window.goatcounter && window.goatcounter.count){
+        if(!seen.has(idx)){
           seen.add(idx);
-          window.goatcounter.count({ path:`pitch-deck/slide-${String(idx).padStart(2,'0')}`, title:tag, event:true });
+          const n = String(idx).padStart(2,'0');
+          track({ path: `${base}/slide-${n}`, title: `${name} · slide ${n}` });
         }
       }
     });
-  }, {threshold:.6});
+  }, {threshold:.5});
   slides.forEach(s=>io.observe(s));
+
+  // 3) CTA click — the conversion signal (intent to book a call).
+  cta.addEventListener('click', ()=>{
+    track({ path: `${base}/cta-book-call`, title: `${name} · booked call`, event: true });
+  });
+
+  // 4) Engagement time — GoatCounter can't store durations, so we bucket the
+  //    total time on the deck and send it once when the tab is hidden/closed.
+  const start = Date.now();
+  let timeSent = false;
+  function sendTime(){
+    if(timeSent) return; timeSent = true;
+    const s = (Date.now() - start) / 1000;
+    const bucket = s < 15 ? '00-15s' : s < 30 ? '15-30s' : s < 60 ? '30-60s'
+      : s < 120 ? '1-2min' : s < 300 ? '2-5min' : '5min-plus';
+    track({ path: `${base}/time-${bucket}`, title: `${name} · time ${bucket}`, event: true });
+  }
+  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') sendTime(); });
+  window.addEventListener('pagehide', sendTime);
 }
 </script>
 </body>

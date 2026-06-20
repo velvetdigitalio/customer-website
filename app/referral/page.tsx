@@ -17,7 +17,7 @@ const steps = [
   {
     num: "01",
     title: "Connect on WhatsApp",
-    body: "Start a WhatsApp chat and give us the brand's name and the contact person you're introducing. Or open a three-way chat and introduce us directly.",
+    body: "Start a WhatsApp chat and give us the brand's name and the contact person you're introducing. Or create a three-way WhatsApp group and introduce us directly.",
   },
   {
     num: "02",
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     q: "When and how do I receive the 1,000 AED?",
-    a: "Payouts are made by bank transfer within 14 business days of the referred brand clearing their first invoice or onboarding payment.",
+    a: "Payouts are made by bank transfer within 7 business days of the referred brand clearing their first invoice or onboarding payment.",
   },
   {
     q: "Can a brand claim the discount without naming a referrer?",
@@ -104,68 +104,114 @@ export default function ReferralPage() {
       />
 
       {/* ── Hero ── */}
-      <section className="bg-paper">
+      <section className="bg-paper-2">
         <Container className="pt-28 lg:pt-36 pb-2xl lg:pb-3xl">
-          <Reveal>
-            <Eyebrow withRule>Referral programme</Eyebrow>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h1 className="mt-md font-serif text-[length:var(--step-3)] leading-[1.08] tracking-[-0.02em] text-ink max-w-[18ch]">
-              Share the work. Grow the{" "}
-              <em className="italic text-gold">craft.</em>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.14}>
-            <p className="mt-md text-ink-2 max-w-[58ch] text-[length:var(--step-1)] leading-[1.5]">
-              Introduce a fine jewellery brand to us, and we&apos;ll thank you
-              both. When they begin, you receive 1,000 AED — and they begin
-              with 1,000 AED off their first month or onboarding fee.
-            </p>
-          </Reveal>
-
-          {/* Two-sided reward */}
-          <Reveal delay={0.2}>
-            <div className="mt-xl grid grid-cols-1 sm:grid-cols-2 gap-px bg-hairline border border-hairline rounded-[var(--radius-sm)] overflow-hidden max-w-[40rem]">
-              <div className="bg-paper p-md lg:p-lg">
-                <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.14em] text-ink-2">
-                  You receive
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-xl lg:gap-2xl lg:items-center">
+            {/* Pitch */}
+            <div>
+              <Reveal>
+                <Eyebrow withRule>Referral programme</Eyebrow>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h1 className="mt-md font-serif text-[length:var(--step-3)] leading-[1.06] tracking-[-0.02em] text-ink max-w-[16ch]">
+                  Share the work. Grow the{" "}
+                  <em className="italic text-gold">craft.</em>
+                </h1>
+              </Reveal>
+              <Reveal delay={0.14}>
+                <p className="mt-md text-ink-2 max-w-[50ch] text-[length:var(--step-1)] leading-[1.5]">
+                  Know a fine jewellery brand that deserves a sharper presence
+                  online? Introduce them to us — and when they begin, we thank
+                  you both.
                 </p>
-                <p className="mt-xs font-serif text-[length:var(--step-2)] leading-none text-ink">
-                  1,000 <span className="text-gold">AED</span>
+              </Reveal>
+              <Reveal delay={0.18}>
+                <p className="mt-md text-[length:var(--step--1)] text-ink-2 max-w-[46ch]">
+                  Open to clients, photographers, suppliers and peers in the
+                  trade.
                 </p>
-                <p className="mt-xs text-[length:var(--step--1)] text-ink-2">
-                  Paid to your bank account.
-                </p>
-              </div>
-              <div className="bg-paper p-md lg:p-lg">
-                <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.14em] text-ink-2">
-                  They receive
-                </p>
-                <p className="mt-xs font-serif text-[length:var(--step-2)] leading-none text-ink">
-                  1,000 <span className="text-gold">AED</span> off
-                </p>
-                <p className="mt-xs text-[length:var(--step--1)] text-ink-2">
-                  Their first month or onboarding.
-                </p>
-              </div>
+              </Reveal>
+              <Reveal delay={0.24}>
+                <div className="mt-lg flex flex-col gap-sm items-stretch sm:items-start">
+                  <WhatsAppButton className="w-full sm:w-auto">
+                    Introduce a brand on WhatsApp
+                  </WhatsAppButton>
+                  <p className="text-[length:var(--step--1)] text-ink-2">
+                    Takes a minute — no forms, no account, just a message.
+                  </p>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
 
-          <Reveal delay={0.26}>
-            <div className="mt-xl flex flex-col gap-sm">
-              <WhatsAppButton className="self-start">
-                Introduce a brand on WhatsApp
-              </WhatsAppButton>
-              <p className="text-[length:var(--step--1)] text-ink-2">
-                A simple introduction on WhatsApp is all it takes to start.
-              </p>
+            {/* Reward plate — the focal object */}
+            <Reveal delay={0.2}>
+              <div
+                className="relative overflow-hidden rounded-[var(--radius-md)] bg-umber text-cream p-lg lg:p-xl"
+                style={{ boxShadow: "0 8px 30px rgba(28,24,20,0.08)" }}
+              >
+                <div
+                  className="absolute -right-8 -top-8 w-44 pointer-events-none select-none"
+                  style={{ opacity: 0.05 }}
+                  aria-hidden="true"
+                >
+                  <VelvetMark className="w-full h-auto text-cream" />
+                </div>
+                <p className="relative font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold">
+                  The reward
+                </p>
+                <div className="relative mt-md flex flex-col">
+                  <div className="py-md border-b border-cream/12">
+                    <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.14em] text-cream-2">
+                      You receive
+                    </p>
+                    <p className="mt-xs font-serif text-[length:var(--step-3)] leading-none text-cream">
+                      1,000 <span className="text-gold">AED</span>
+                    </p>
+                    <p className="mt-xs text-[length:var(--step--1)] text-cream-2">
+                      Paid to your bank account.
+                    </p>
+                  </div>
+                  <div className="pt-md">
+                    <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.14em] text-cream-2">
+                      They receive
+                    </p>
+                    <p className="mt-xs font-serif text-[length:var(--step-3)] leading-none text-cream">
+                      1,000 <span className="text-gold">AED</span> off
+                    </p>
+                    <p className="mt-xs text-[length:var(--step--1)] text-cream-2">
+                      Their first month or onboarding fee.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Trust strip — reassurance at the ask */}
+          <Reveal delay={0.3}>
+            <div className="mt-2xl lg:mt-3xl pt-lg border-t border-hairline grid grid-cols-2 md:grid-cols-4 gap-lg">
+              {[
+                { k: "The payout", v: "Paid by Bank Transfer" },
+                { k: "Timing", v: "Within 7 Business Days" },
+                { k: "No limit", v: "Every Brand you Introduce" },
+                { k: "No catch", v: "No tiers, No points" },
+              ].map((t) => (
+                <div key={t.k}>
+                  <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.16em] text-gold">
+                    {t.k}
+                  </p>
+                  <p className="mt-2xs text-ink text-[length:var(--step-0)] leading-[1.4]">
+                    {t.v}
+                  </p>
+                </div>
+              ))}
             </div>
           </Reveal>
         </Container>
       </section>
 
       {/* ── How it works ── */}
-      <Section surface="paper-2" ariaLabel="How it works">
+      <Section surface="paper" ariaLabel="How it works">
         <Reveal>
           <Eyebrow withRule>How it works</Eyebrow>
         </Reveal>
@@ -179,10 +225,13 @@ export default function ReferralPage() {
           {steps.map((s, i) => (
             <Reveal key={s.num} delay={0.1 + i * 0.08}>
               <div className="border-t border-hairline pt-md h-full">
-                <span className="font-serif text-[length:var(--step-1)] text-gold leading-none">
-                  {s.num}
-                </span>
-                <h3 className="mt-sm font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink">
+                <div className="flex items-baseline gap-sm">
+                  <span className="font-serif text-[length:var(--step-2)] text-gold leading-none">
+                    {s.num}
+                  </span>
+                  <span className="h-px flex-1 bg-hairline translate-y-[-0.35em]" aria-hidden />
+                </div>
+                <h3 className="mt-md font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink">
                   {s.title}
                 </h3>
                 <p className="mt-sm text-ink-2 leading-[1.6]">{s.body}</p>
@@ -193,7 +242,7 @@ export default function ReferralPage() {
       </Section>
 
       {/* ── FAQ ── */}
-      <Section surface="paper" ariaLabel="Frequently asked questions">
+      <Section surface="paper-2" ariaLabel="Frequently asked questions">
         <div className="max-w-[760px]">
           <Reveal>
             <Eyebrow withRule>Questions</Eyebrow>
@@ -233,7 +282,7 @@ export default function ReferralPage() {
       </Section>
 
       {/* ── Terms & conditions ── */}
-      <Section surface="paper-2" ariaLabel="Terms and conditions">
+      <Section surface="paper" ariaLabel="Terms and conditions">
         <div className="max-w-[760px]">
           <Reveal>
             <Eyebrow withRule>The detail</Eyebrow>
@@ -297,6 +346,11 @@ export default function ReferralPage() {
                 Introduce a brand on WhatsApp
               </WhatsAppButton>
             </div>
+          </Reveal>
+          <Reveal delay={0.34}>
+            <p className="mt-md text-cream-2 text-[length:var(--step--1)]">
+              Just tell us before they sign, and your reward is protected.
+            </p>
           </Reveal>
         </div>
       </Section>
