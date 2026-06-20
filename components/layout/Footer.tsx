@@ -11,6 +11,7 @@ const studioLinks = [
   { label: "Services", href: "/services/" },
   { label: "Studio", href: "/studio/" },
   { label: "Journal", href: "/journal/" },
+  { label: "Refer a brand", href: "/referral/" },
 ] as const;
 
 const socialLinks = [

@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
 <title>Deck Link Generator</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
@@ -31,9 +33,11 @@
 document.getElementById('go').addEventListener('click', async ()=>{
   const n = document.getElementById('name').value.trim();
   if(!n) return;
-  const payload = JSON.stringify({n, i: document.getElementById('ind').value});
-  const c = btoa(unescape(encodeURIComponent(payload))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-  const url = `${location.origin}${location.pathname.replace(/link\.html$/,'')}?c=${c}`;
+  // Short link: base64url of the name only. Industry is optional and only added
+  // when it differs from the default (jewellery).
+  const c = btoa(unescape(encodeURIComponent(n))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  let url = `${location.origin}${location.pathname.replace(/link\.html$/,'')}?c=${c}`;
+  if(document.getElementById('ind').value === 'interiors') url += '&i=i';
   const out = document.getElementById('out');
   out.textContent = url; out.style.display = 'block';
   try{ await navigator.clipboard.writeText(url); document.getElementById('copied').style.display='block'; }catch(e){}
