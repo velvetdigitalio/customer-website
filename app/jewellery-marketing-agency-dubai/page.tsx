@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -131,17 +132,17 @@ export default function JewelleryMarketingDubaiPage() {
             the brand and the content engine that earns attention, run the
             social and paid work that turns attention into intent, and lay the
             local-search groundwork —{" "}
-            <a href="/jewellery-marketing-agency-dubai/jewellery-seo/">
+            <Link href="/jewellery-marketing-agency-dubai/jewellery-seo/">
               jewellery SEO
-            </a>{" "}
+            </Link>{" "}
             and{" "}
-            <a href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
+            <Link href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
               Google reviews
-            </a>{" "}
+            </Link>{" "}
             — so the high-intent buyer searching nearby finds you first. The{" "}
-            <a href="/jewellery-marketing-agency-dubai/instagram-content/">
+            <Link href="/jewellery-marketing-agency-dubai/instagram-content/">
               Instagram content
-            </a>{" "}
+            </Link>{" "}
             is where much of it becomes visible.
           </p>
         </div>

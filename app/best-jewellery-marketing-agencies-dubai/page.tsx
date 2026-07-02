@@ -219,9 +219,9 @@ export default function BestAgenciesPage() {
             <p>
               If you want a specialist built for the independent jewellery house,
               that is exactly what we do — see the{" "}
-              <a href="/jewellery-marketing-agency-dubai/">
+              <Link href="/jewellery-marketing-agency-dubai/">
                 jewellery marketing agency Dubai
-              </a>{" "}
+              </Link>{" "}
               page, or start with a short, honest audit below.
             </p>
           </div>

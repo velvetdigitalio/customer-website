@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -103,16 +104,16 @@ export default function MarketingAgencyDubaiPage() {
           </p>
           <ul>
             <li>
-              <a href="/jewellery-marketing-agency-dubai/">
+              <Link href="/jewellery-marketing-agency-dubai/">
                 Jewellery marketing agency Dubai
-              </a>{" "}
+              </Link>{" "}
               — brand, content, Google reviews and SEO for independent and
               family jewellery houses.
             </li>
             <li>
-              <a href="/interior-design-marketing-agency-dubai/">
+              <Link href="/interior-design-marketing-agency-dubai/">
                 Interior design marketing agency Dubai
-              </a>{" "}
+              </Link>{" "}
               — positioning, portfolio and lead work for studios and practices.
             </li>
           </ul>
@@ -124,30 +125,30 @@ export default function MarketingAgencyDubaiPage() {
           </p>
           <ul>
             <li>
-              <a href="/jewellery-marketing-agency-dubai/instagram-content/">
+              <Link href="/jewellery-marketing-agency-dubai/instagram-content/">
                 Instagram content for jewellers
-              </a>{" "}
+              </Link>{" "}
               — the feed run as an editorial publication, not a product catalogue.
             </li>
             <li>
-              <a href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
+              <Link href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
                 Google reviews for jewellers
-              </a>{" "}
+              </Link>{" "}
               — the highest-intent surface most jewellers neglect.
             </li>
             <li>
-              <a href="/jewellery-marketing-agency-dubai/jewellery-seo/">
+              <Link href="/jewellery-marketing-agency-dubai/jewellery-seo/">
                 Jewellery SEO
-              </a>{" "}
+              </Link>{" "}
               — being found by the buyer searching in Deira or at Gold &amp;
               Diamond Park.
             </li>
           </ul>
           <p>
             Weighing your options? We wrote an honest guide to{" "}
-            <a href="/best-jewellery-marketing-agencies-dubai/">
+            <Link href="/best-jewellery-marketing-agencies-dubai/">
               the best jewellery marketing agencies in Dubai
-            </a>{" "}
+            </Link>{" "}
             — ourselves included, with the positioning stated plainly.
           </p>
         </div>

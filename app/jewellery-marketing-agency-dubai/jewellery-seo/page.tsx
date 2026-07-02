@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -105,9 +106,9 @@ export default function JewellerySeoPage() {
               <strong>Local &amp; map presence.</strong> Your Google Business
               Profile, categories, photos and reviews, so you surface for
               &ldquo;jeweller near me&rdquo; searches — closely tied to our{" "}
-              <a href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
+              <Link href="/jewellery-marketing-agency-dubai/google-reviews-for-jewellers/">
                 Google reviews
-              </a>{" "}
+              </Link>{" "}
               work.
             </li>
             <li>
