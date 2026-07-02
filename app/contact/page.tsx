@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Request an Audit · Velvet Digital",
+  title: "Request a Brand Audit",
   description:
     "A short, honest review of your brand and digital presence. We reply within two working days.",
   path: "/contact/",

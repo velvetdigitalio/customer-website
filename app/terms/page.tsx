@@ -1,7 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Terms of Service — Velvet Digital",
+  title: "Terms of Service",
   description: "The terms that govern use of the Velvet Digital website.",
   path: "/terms/",
 });

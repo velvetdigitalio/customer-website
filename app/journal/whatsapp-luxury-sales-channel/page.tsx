@@ -6,7 +6,7 @@ const standfirst =
   "In the UAE, the high-value enquiry doesn't want a web form. It wants a conversation — on the app it already lives in. The brands that understand this are quietly winning.";
 
 export const metadata = pageMeta({
-  title: `${title} — Velvet Digital`,
+  title: title,
   description: standfirst,
   path: "/journal/whatsapp-luxury-sales-channel/",
   type: "article",

@@ -7,7 +7,7 @@ import { VelvetMark } from "@/components/ui/VelvetMark";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Refer a jewellery brand · Velvet Digital",
+  title: "Refer a Jewellery Brand",
   description:
     "Introduce a fine jewellery brand to Velvet and we'll thank you both — 1,000 AED to you, and 1,000 AED off their first month for them.",
   path: "/referral/",

@@ -6,7 +6,7 @@ const standfirst =
   "Every year brings a new list of tactics. Most are noise. A few genuinely move the needle for high-value brands. Here is what we're paying attention to — and what we're ignoring.";
 
 export const metadata = pageMeta({
-  title: `${title} — Velvet Digital`,
+  title: title,
   description: standfirst,
   path: "/journal/what-works-luxury-digital-2026/",
   type: "article",

@@ -2,7 +2,7 @@ import { pageMeta } from "@/lib/seo";
 import { TextLink } from "@/components/ui/TextLink";
 
 export const metadata = pageMeta({
-  title: "Journal · Velvet Digital",
+  title: "Journal — Luxury Digital Marketing Notes",
   description:
     "Notes on luxury branding, jewellery and interiors marketing in the Gulf.",
   path: "/journal/",

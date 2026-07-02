@@ -6,7 +6,7 @@ const standfirst =
   "Interior design is a visual field, so it's tempting to assume a beautiful portfolio does the selling. It doesn't. Clients hire on trust and fit — and that's built before they ever call.";
 
 export const metadata = pageMeta({
-  title: `${title} — Velvet Digital`,
+  title: title,
   description: standfirst,
   path: "/journal/interior-designers-digital-presence/",
   type: "article",
