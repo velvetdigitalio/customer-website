@@ -1,11 +1,14 @@
 "use client";
 
+import { preload } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { TextLink } from "@/components/ui/TextLink";
 import { VelvetMark } from "@/components/ui/VelvetMark";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const HERO_IMAGE = "/images/brass-line-on-linen.png";
 
 function Word({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
@@ -107,6 +110,9 @@ function StaticHero() {
 export function Hero() {
   const prefersReduced = useReducedMotion();
 
+  // Preload the LCP-adjacent hero image so it paints without a network stall.
+  preload(HERO_IMAGE, { as: "image", fetchPriority: "high" });
+
   return (
     <section
       data-hero-dark=""
@@ -149,7 +155,7 @@ export function Hero() {
         }}
       >
         <img
-          src="/images/brass-line-on-linen.png"
+          src={HERO_IMAGE}
           alt=""
           width={1448}
           height={1086}
@@ -171,7 +177,7 @@ export function Hero() {
         }}
       >
         <img
-          src="/images/brass-line-on-linen.png"
+          src={HERO_IMAGE}
           alt=""
           width={1448}
           height={1086}

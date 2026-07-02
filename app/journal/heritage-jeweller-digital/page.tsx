@@ -6,7 +6,7 @@ const standfirst =
   "The best jewellery houses already have the hard part — the craft. What they usually lack is a digital presence that carries it. A few principles we hold to.";
 
 export const metadata = pageMeta({
-  title: `${title} — Velvet Digital`,
+  title: title,
   description: standfirst,
   path: "/journal/heritage-jeweller-digital/",
   type: "article",

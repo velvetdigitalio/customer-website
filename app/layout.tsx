@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import { Fraunces } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { pageMeta, SITE_URL } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { professionalServiceLd, webSiteLd } from "@/lib/schema";
+import { SITE_URL, SITE_NAME, OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,38 +20,45 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const HOME_TITLE =
+  "Velvet Digital — Marketing Agency for Jewellery & Interior Brands in Dubai";
+const HOME_DESCRIPTION =
+  "A marketing agency for jewellery and interior design brands in Dubai and across the UAE. Brand, content, social and local SEO — built in India, made to Gulf standards.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...pageMeta({
-    title:
-      "Velvet Digital — Branding & Digital for Fine Jewellery and Interiors",
-    description:
-      "A brand & digital studio for fine jewellery houses and interior designers in the UAE. Built in India, made to Gulf standards.",
-    path: "/",
-  }),
-};
-
-const organizationLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Velvet Digital",
-  url: SITE_URL,
-  logo: `${SITE_URL}/brand/lockup.png`,
-  image: `${SITE_URL}/og.png`,
-  description:
-    "A brand & digital studio for fine jewellery houses and interior designers in the UAE. Built in India, made to Gulf standards.",
-  slogan: "Built in India. Made for the Gulf.",
-  areaServed: { "@type": "Country", name: "United Arab Emirates" },
-  knowsAbout: [
-    "fine jewellery branding",
-    "interior design marketing",
-    "luxury content studio",
-    "WhatsApp automation for luxury brands",
-  ],
-  sameAs: [
-    "https://www.instagram.com/velvetdigital.io",
-    "https://www.facebook.com/people/velvetdigitalio/61590411488979/",
-  ],
+  title: {
+    template: `%s | ${SITE_NAME}`,
+    default: HOME_TITLE,
+  },
+  description: HOME_DESCRIPTION,
+  alternates: { canonical: `${SITE_URL}/` },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_AE",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: `${SITE_URL}/`,
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -58,12 +67,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${inter.variable} ${fraunces.variable}`}
+    >
       <body className="min-h-dvh bg-paper text-ink font-sans">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
-        />
+        <JsonLd data={[professionalServiceLd, webSiteLd]} />
         <Header />
         {children}
         <Footer />

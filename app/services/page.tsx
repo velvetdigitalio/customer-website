@@ -6,7 +6,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Services — Brand, Content, Performance & Systems · Velvet Digital",
+  title: "Services — Brand, Content & Performance",
   description:
     "Brand identity, editorial content, paid media and automation for fine jewellery and interior brands across the UAE.",
   path: "/services/",

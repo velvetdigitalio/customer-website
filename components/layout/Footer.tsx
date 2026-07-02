@@ -14,6 +14,18 @@ const studioLinks = [
   { label: "Refer a brand", href: "/referral/" },
 ] as const;
 
+const serviceLinks = [
+  { label: "Marketing Agency Dubai", href: "/marketing-agency-dubai/" },
+  {
+    label: "Jewellery Marketing Dubai",
+    href: "/jewellery-marketing-agency-dubai/",
+  },
+  {
+    label: "Interior Design Marketing",
+    href: "/interior-design-marketing-agency-dubai/",
+  },
+] as const;
+
 const socialLinks = [
   {
     label: "Instagram",
@@ -52,7 +64,7 @@ export function Footer() {
         </div>
 
         {/* Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-lg sm:gap-xl border-t border-cream/12 pt-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg sm:gap-xl border-t border-cream/12 pt-lg">
           {/* Studio column */}
           <div>
             <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold mb-xs">
@@ -60,6 +72,29 @@ export function Footer() {
             </p>
             <nav aria-label="Footer — Studio" className="flex flex-col gap-2xs">
               {studioLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="link font-sans text-cream-2 hover:text-cream w-fit"
+                  style={{
+                    "--underline-color": "var(--gold-soft)",
+                    transition:
+                      "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
+                  } as React.CSSProperties}
+                >
+                  <span className="relative">{link.label}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Services column (SEO silo) */}
+          <div>
+            <p className="font-sans text-[length:var(--step--1)] uppercase tracking-[0.18em] text-gold mb-xs">
+              Services
+            </p>
+            <nav aria-label="Footer — Services" className="flex flex-col gap-2xs">
+              {serviceLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

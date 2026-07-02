@@ -8,7 +8,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "The Studio — Built in Bengaluru, Made for the Gulf · Velvet Digital",
+  title: "The Studio — Built in India, Made for the Gulf",
   description:
     "A small studio working from India for the luxury market of the UAE. How we work and who we work with.",
   path: "/studio/",

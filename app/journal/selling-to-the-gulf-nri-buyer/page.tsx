@@ -6,7 +6,7 @@ const standfirst =
   "The UAE has one of the world's densest concentrations of high-net-worth Indian families. Most jewellery brands market to them as if they were the same as buyers back home. They aren't.";
 
 export const metadata = pageMeta({
-  title: `${title} — Velvet Digital`,
+  title: title,
   description: standfirst,
   path: "/journal/selling-to-the-gulf-nri-buyer/",
   type: "article",

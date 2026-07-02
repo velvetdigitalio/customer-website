@@ -34,6 +34,7 @@ export function pageMeta({
     openGraph: {
       type,
       siteName: SITE_NAME,
+      locale: "en_AE",
       title,
       description,
       url,

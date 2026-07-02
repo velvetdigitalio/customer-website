@@ -7,7 +7,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Selected Work · Velvet Digital",
+  title: "Selected Work",
   description:
     "Campaign concepts and art direction for fine jewellery and interior brands. Concept work, not delivered client results.",
   path: "/work/",

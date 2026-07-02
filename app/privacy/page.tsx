@@ -1,7 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Privacy Policy — Velvet Digital",
+  title: "Privacy Policy",
   description:
     "How Velvet Digital collects, uses and protects the limited personal information you share with us.",
   path: "/privacy/",
