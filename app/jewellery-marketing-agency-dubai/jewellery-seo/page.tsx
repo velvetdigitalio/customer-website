@@ -6,7 +6,7 @@ import { serviceLd, faqPageLd, breadcrumbLd, type Faq } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/money/Breadcrumbs";
 import { MoneyHero } from "@/components/money/MoneyHero";
 import { ProcessSteps } from "@/components/money/ProcessSteps";
-import { ProofPlaceholder } from "@/components/money/ProofPlaceholder";
+import { MoneyProof } from "@/components/money/MoneyProof";
 import { FaqSection } from "@/components/money/FaqSection";
 import { RelatedLinks } from "@/components/money/RelatedLinks";
 import { MoneyCta } from "@/components/money/MoneyCta";
@@ -152,14 +152,14 @@ export default function JewellerySeoPage() {
         </div>
       </Section>
 
-      <Section surface="paper" ariaLabel="Proof">
-        <div className="max-w-[760px] mx-auto">
-          <h2 className="font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink mb-md">
-            Proof
-          </h2>
-          <ProofPlaceholder note="Ranking and traffic results are shown on a call as engagements mature — real search data, not a fabricated chart." />
-        </div>
-      </Section>
+      <MoneyProof
+        productName="Jewellery SEO — Dubai"
+        productDescription="Local and organic search for independent jewellers in Dubai — Google Business Profile, on-page and technical SEO built to earn high-intent buyers."
+        path={PATH}
+        tags={["seo", "jewellery"]}
+        surface="paper"
+        heading="What jewellers say"
+      />
 
       <FaqSection faqs={faqs} heading="Jewellery SEO, answered" />
 

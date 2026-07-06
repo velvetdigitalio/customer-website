@@ -71,6 +71,74 @@ export function serviceLd({
   };
 }
 
+export type ProductReview = {
+  author: string;
+  rating: string;
+  body: string;
+  date?: string;
+};
+
+/**
+ * Per-page Product schema carrying aggregateRating + review[], the markup Google
+ * accepts for star-rating rich results.
+ *
+ * IMPORTANT — apply this ONLY to individual service/money pages, never the
+ * homepage and never the root layout. Google made self-serving ratings on
+ * Organization / LocalBusiness ineligible in 2019, so the offering is marked up
+ * as a Product instead. Every review passed here MUST also be rendered visibly
+ * on the same page (feed both from data/testimonials.ts) — invisible-only review
+ * markup risks a manual action.
+ */
+export function buildServiceProductSchema({
+  name,
+  description,
+  url,
+  ratingValue,
+  reviewCount,
+  reviews,
+  bestRating = "5",
+  image,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  ratingValue: string;
+  reviewCount: string;
+  reviews: ProductReview[];
+  bestRating?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name,
+    description,
+    url,
+    brand: { "@type": "Brand", name: SITE_NAME },
+    ...(image ? { image } : {}),
+    // No `offers` block: we do not fabricate a single price for a scoped service.
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue,
+      reviewCount,
+      bestRating,
+      worstRating: "1",
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating,
+        worstRating: "1",
+      },
+      reviewBody: r.body,
+      ...(r.date ? { datePublished: r.date } : {}),
+    })),
+  };
+}
+
 export type Faq = { q: string; a: string };
 
 /** FAQPage schema, generated from the same array that renders the visible FAQ. */

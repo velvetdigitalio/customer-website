@@ -5,7 +5,7 @@ import { serviceLd, faqPageLd, breadcrumbLd, type Faq } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/money/Breadcrumbs";
 import { MoneyHero } from "@/components/money/MoneyHero";
 import { ProcessSteps } from "@/components/money/ProcessSteps";
-import { ProofPlaceholder } from "@/components/money/ProofPlaceholder";
+import { MoneyProof } from "@/components/money/MoneyProof";
 import { FaqSection } from "@/components/money/FaqSection";
 import { RelatedLinks } from "@/components/money/RelatedLinks";
 import { MoneyCta } from "@/components/money/MoneyCta";
@@ -146,14 +146,14 @@ export default function GoogleReviewsPage() {
         </div>
       </Section>
 
-      <Section surface="paper" ariaLabel="Proof">
-        <div className="max-w-[760px] mx-auto">
-          <h2 className="font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink mb-md">
-            Proof
-          </h2>
-          <ProofPlaceholder note="Before-and-after profile results are shown on a call as engagements complete — real ratings and rankings, not a fabricated screenshot." />
-        </div>
-      </Section>
+      <MoneyProof
+        productName="Google Reviews for Jewellers — Dubai"
+        productDescription="A quiet, compliant system that earns genuine Google reviews from real customers and keeps an independent jeweller's Business Profile working as a high-intent surface."
+        path={PATH}
+        tags={["reviews", "jewellery"]}
+        surface="paper"
+        heading="What jewellers say"
+      />
 
       <FaqSection faqs={faqs} heading="Google reviews for jewellers, answered" />
 

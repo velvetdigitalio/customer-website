@@ -5,7 +5,7 @@ import { serviceLd, faqPageLd, breadcrumbLd, type Faq } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/money/Breadcrumbs";
 import { MoneyHero } from "@/components/money/MoneyHero";
 import { ProcessSteps } from "@/components/money/ProcessSteps";
-import { ProofPlaceholder } from "@/components/money/ProofPlaceholder";
+import { MoneyProof } from "@/components/money/MoneyProof";
 import { FaqSection } from "@/components/money/FaqSection";
 import { RelatedLinks } from "@/components/money/RelatedLinks";
 import { MoneyCta } from "@/components/money/MoneyCta";
@@ -142,14 +142,14 @@ export default function InstagramContentPage() {
         </div>
       </Section>
 
-      <Section surface="paper" ariaLabel="Proof">
-        <div className="max-w-[760px] mx-auto">
-          <h2 className="font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink mb-md">
-            Proof
-          </h2>
-          <ProofPlaceholder note="Feed transformations and content examples are shown on a call as engagements complete — real work, not a stock mock-up." />
-        </div>
-      </Section>
+      <MoneyProof
+        productName="Instagram Content for Jewellers — Dubai"
+        productDescription="Editorial photography and macro film, art direction and a consistent publication that makes an independent jeweller's Instagram look like the tray its pieces come from."
+        path={PATH}
+        tags={["instagram", "jewellery"]}
+        surface="paper"
+        heading="What jewellers say"
+      />
 
       <FaqSection faqs={faqs} heading="Jewellery Instagram, answered" />
 
