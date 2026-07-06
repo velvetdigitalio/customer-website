@@ -12,7 +12,7 @@ import { Breadcrumbs } from "@/components/money/Breadcrumbs";
 import { MoneyHero } from "@/components/money/MoneyHero";
 import { ServiceTiers } from "@/components/money/ServiceTiers";
 import { ProcessSteps } from "@/components/money/ProcessSteps";
-import { ProofPlaceholder } from "@/components/money/ProofPlaceholder";
+import { MoneyProof } from "@/components/money/MoneyProof";
 import { FaqSection } from "@/components/money/FaqSection";
 import { RelatedLinks } from "@/components/money/RelatedLinks";
 import { MoneyCta } from "@/components/money/MoneyCta";
@@ -228,14 +228,13 @@ export default function JewelleryMarketingDubaiPage() {
         />
       </Section>
 
-      <Section surface="paper-2" ariaLabel="Proof">
-        <div className="max-w-[760px] mx-auto">
-          <h2 className="font-serif text-[length:var(--step-2)] leading-[1.15] tracking-[-0.02em] text-ink mb-md">
-            Proof
-          </h2>
-          <ProofPlaceholder />
-        </div>
-      </Section>
+      <MoneyProof
+        productName="Jewellery Marketing — Dubai"
+        productDescription="Brand, content, social, Google reviews and SEO for independent jewellers in Dubai and across the UAE, run as one compounding practice."
+        path={PATH}
+        tags={["jewellery"]}
+        heading="What jewellers say"
+      />
 
       <FaqSection faqs={faqs} heading="Jewellery marketing in Dubai, answered" />
 

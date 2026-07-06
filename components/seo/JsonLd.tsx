@@ -4,6 +4,20 @@ type JsonLdProps = {
 };
 
 /**
+ * Serialise a schema object and neutralise any sequence that could break out
+ * of the surrounding <script> tag. Review/quote text is author-supplied, so a
+ * stray `</script>` or an HTML-injection attempt would otherwise close the tag
+ * early. Escaping `<`, `>` and `&` to their \uXXXX forms keeps the payload
+ * valid JSON while making breakout impossible.
+ */
+function serialise(block: Record<string, unknown>): string {
+  return JSON.stringify(block)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+}
+
+/**
  * Renders one or more schema.org JSON-LD blocks. Server-safe; the payload is
  * serialised once and injected via dangerouslySetInnerHTML so it lands in the
  * static HTML for crawlers.
@@ -16,7 +30,7 @@ export function JsonLd({ data }: JsonLdProps) {
         <script
           key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
+          dangerouslySetInnerHTML={{ __html: serialise(block) }}
         />
       ))}
     </>
