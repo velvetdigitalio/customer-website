@@ -5,8 +5,9 @@ backend:
   name: github
   repo: velvetdigitalio/customer-website
   branch: main
-  # For hosted login at /admin/, deploy an OAuth broker and set its URL here:
-  # base_url: https://your-oauth-broker.example.workers.dev
+  # Hosted login broker (Cloudflare Worker in /cms-oauth). Replace the host below
+  # with YOUR deployed Worker URL, then commit + push. See cms-oauth/README.md.
+  base_url: https://velvet-cms-oauth.REPLACE-ME.workers.dev
 
 # Lets you run the CMS with zero auth locally via `npx decap-server`.
 local_backend: true

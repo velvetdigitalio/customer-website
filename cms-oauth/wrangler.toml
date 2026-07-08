@@ -1,0 +1,7 @@
+name = "velvet-cms-oauth"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Secrets (do NOT put them here — set them with `npx wrangler secret put`):
+#   GITHUB_CLIENT_ID
+#   GITHUB_CLIENT_SECRET
