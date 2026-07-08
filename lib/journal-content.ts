@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
+import { load as yamlLoad, FAILSAFE_SCHEMA } from "js-yaml";
 
 /**
  * File-based journal pipeline. Drop an `.html` file into `content/journal/` and
@@ -42,27 +43,31 @@ export type JournalMeta = {
 
 export type JournalEntry = { slug: string; meta: JournalMeta; html: string };
 
-/** Parse a `---`-delimited frontmatter block of simple `key: value` lines. */
-function parseFrontmatter(raw: string): {
+/**
+ * Parse a `---`-delimited frontmatter block as proper YAML. The CMS (Decap)
+ * writes real YAML — multi-line folded values, quoted/escaped strings — so we
+ * parse with js-yaml rather than reading lines by hand. FAILSAFE_SCHEMA keeps
+ * every value a string (so a bare date like 2026-07-08 stays "2026-07-08"
+ * instead of becoming a Date). A malformed block logs a warning and yields no
+ * metadata rather than crashing the whole static build.
+ */
+function parseFrontmatter(raw: string, label = "article"): {
   data: Record<string, string>;
   body: string;
 } {
   const match = raw.match(/^﻿?---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/);
   if (!match) return { data: {}, body: raw };
 
-  const data: Record<string, string> = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(":");
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    let value = line.slice(idx + 1).trim();
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
+  let data: Record<string, string> = {};
+  try {
+    const parsed = yamlLoad(match[1], { schema: FAILSAFE_SCHEMA });
+    if (parsed && typeof parsed === "object") {
+      data = parsed as Record<string, string>;
     }
-    if (key) data[key] = value;
+  } catch (err) {
+    console.warn(
+      `[journal] Skipping invalid frontmatter in "${label}": ${(err as Error).message}`,
+    );
   }
   return { data, body: match[2] ?? "" };
 }
@@ -113,7 +118,7 @@ export function getJournalEntry(slug: string): JournalEntry | null {
   const file = isMarkdown ? mdFile : htmlFile;
   if (!fs.existsSync(file)) return null;
 
-  const parsed = parseFrontmatter(fs.readFileSync(file, "utf8"));
+  const parsed = parseFrontmatter(fs.readFileSync(file, "utf8"), slug);
   const data = parsed.data;
   // Markdown files are rendered to HTML at build; .html files pass through.
   // marked.parse is synchronous by default, so the cast is safe.

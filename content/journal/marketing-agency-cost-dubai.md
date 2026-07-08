@@ -1,7 +1,7 @@
 ---
 title: How much does a marketing agency cost in Dubai?
 description: What a marketing agency costs in Dubai for a luxury or boutique brand — typical retainer ranges in AED, what drives the price, and how to judge value.
-standfirst: The honest answer is: it depends — but not unknowably. A clear look at what marketing costs for a luxury brand in Dubai, what drives the number, and how to tell whether you're paying for work or for overhead.
+standfirst: "The honest answer is: it depends — but not unknowably. A clear look at what marketing costs for a luxury brand in Dubai, what drives the number, and how to tell whether you're paying for work or for overhead."
 date: July 2026
 isoDate: 2026-07-07
 pillar: /marketing-agency-dubai/

@@ -11,6 +11,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "js-yaml": "^5.2.1",
     "lucide-react": "^1.16.0",
     "marked": "^12.0.2",
     "next": "16.2.6",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
