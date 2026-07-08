@@ -9,5 +9,58 @@
   <body>
     <!-- Decap CMS. Loaded from CDN; this admin page is not indexed. -->
     <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+
+    <!-- Live preview that mirrors the real /journal/ article page. -->
+    <script>
+      (function () {
+        var CMS = window.CMS;
+        CMS.registerPreviewStyle("/admin/preview.css");
+
+        var JournalPreview = createClass({
+          render: function () {
+            var entry = this.props.entry;
+            var get = function (key) {
+              return entry.getIn(["data", key]) || "";
+            };
+
+            var hero = get("hero");
+            var heroEl = hero
+              ? h("img", {
+                  className: "vp-hero",
+                  src: this.props.getAsset(hero).toString(),
+                  alt: get("heroAlt"),
+                })
+              : null;
+
+            var displayDate =
+              get("date") || String(get("isoDate")).slice(0, 10);
+
+            return h(
+              "article",
+              { className: "vp" },
+              h(
+                "div",
+                { className: "vp-head" },
+                h("p", { className: "vp-eyebrow" }, get("eyebrow") || "Guide"),
+                h("h1", { className: "vp-title" }, get("title")),
+                h("p", { className: "vp-standfirst" }, get("standfirst")),
+                h("p", { className: "vp-meta" }, "Velvet Digital · " + displayDate)
+              ),
+              heroEl,
+              h(
+                "div",
+                { className: "vp-body prose-velvet" },
+                this.props.widgetFor("body")
+              ),
+              get("pillarLabel")
+                ? h("p", { className: "vp-pillar" }, get("pillarLabel") + " →")
+                : null
+            );
+          },
+        });
+
+        CMS.registerPreviewTemplate("journal", JournalPreview);
+      })();
+    </script>
   </body>
 </html>
