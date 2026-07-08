@@ -14,10 +14,21 @@ type ArticleShellProps = {
   title: string;
   standfirst: string;
   date: string;
-  /** Anchor on /services this piece relates to. */
+  /** ISO date (YYYY-MM-DD) for the Article schema. Defaults to the original
+   *  journal launch date so existing pieces are unchanged. */
+  isoDate?: string;
+  /** A related page this piece links up to — usually the money/service page
+   *  it supports, so the article passes context and link equity to its pillar. */
   servicesHref: string;
   servicesLabel: string;
-  body: Block[];
+  /** Structured body (used by the hand-written page.tsx articles). */
+  body?: Block[];
+  /** Pre-rendered HTML body (used by the content-file pipeline). Takes
+   *  precedence over `body`. Injected into the `prose-velvet` container. */
+  html?: string;
+  /** Optional hero image path under /public. */
+  hero?: string;
+  heroAlt?: string;
 };
 
 function ArticleBody({ body }: { body: Block[] }) {
@@ -59,23 +70,28 @@ export function ArticleShell({
   title,
   standfirst,
   date,
+  isoDate = "2026-06-10",
   servicesHref,
   servicesLabel,
   body,
+  html,
+  hero,
+  heroAlt,
 }: ArticleShellProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
     description: standfirst,
+    ...(hero ? { image: `${SITE_URL}${hero}` } : {}),
     author: { "@type": "Organization", name: "Velvet Digital", url: SITE_URL },
     publisher: {
       "@type": "Organization",
       name: "Velvet Digital",
       url: SITE_URL,
     },
-    datePublished: "2026-06-10",
-    dateModified: "2026-06-10",
+    datePublished: isoDate,
+    dateModified: isoDate,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE_URL}/journal/${slug}/`,
@@ -104,9 +120,31 @@ export function ArticleShell({
           </div>
         </Section>
 
+        {hero && (
+          <Section surface="paper" className="!pb-0">
+            <div className="max-w-[820px] mx-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={hero}
+                alt={heroAlt ?? title}
+                className="w-full h-auto rounded-[var(--radius-md)]"
+              />
+            </div>
+          </Section>
+        )}
+
         <Section surface="paper">
-          <div className="max-w-[620px] mx-auto prose-velvet">
-            <ArticleBody body={body} />
+          <div className="max-w-[620px] mx-auto">
+            {html ? (
+              <div
+                className="prose-velvet"
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
+            ) : (
+              <div className="prose-velvet">
+                <ArticleBody body={body ?? []} />
+              </div>
+            )}
 
             <p className="mt-lg font-serif italic text-ink-2">— Velvet Digital</p>
 

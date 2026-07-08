@@ -1,0 +1,84 @@
+# Decap CMS configuration for the Velvet Digital journal.
+# Docs: https://decapcms.org/docs/
+
+backend:
+  name: github
+  repo: velvetdigitalio/customer-website
+  branch: main
+  # For hosted login at /admin/, deploy an OAuth broker and set its URL here:
+  # base_url: https://your-oauth-broker.example.workers.dev
+
+# Lets you run the CMS with zero auth locally via `npx decap-server`.
+local_backend: true
+
+# Commit straight to `main` (no review workflow) — simplest for a solo editor.
+publish_mode: simple
+
+# Uploaded images are committed here and served from this URL path.
+media_folder: public/journal/uploads
+public_folder: /journal/uploads
+
+collections:
+  - name: journal
+    label: Journal articles
+    label_singular: Article
+    description: Guides and field notes. Each entry becomes a page at /journal/<slug>/.
+    folder: content/journal
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [isoDate, title]
+    fields:
+      - name: title
+        label: Title
+        widget: string
+        hint: Write it as the question people google, e.g. "How to clean a diamond ring at home".
+      - name: description
+        label: Meta description (for Google)
+        widget: text
+        hint: The grey snippet under the title in search results. One sentence.
+      - name: standfirst
+        label: Standfirst
+        widget: text
+        hint: The one-line summary shown under the headline on the page.
+      - name: isoDate
+        label: Date
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+        picker_utc: true
+      - name: date
+        label: Display date (optional)
+        widget: string
+        required: false
+        hint: Leave blank to auto-fill from the date above (e.g. "July 2026").
+      - name: pillar
+        label: Links to (service page path)
+        widget: string
+        default: "/jewellery-marketing-agency-dubai/"
+        hint: The service page this article supports. Shown as a link at the foot.
+      - name: pillarLabel
+        label: Link text
+        widget: string
+        default: "Jewellery marketing agency Dubai"
+      - name: eyebrow
+        label: Label above title
+        widget: string
+        default: "Guide"
+        required: false
+      - name: hero
+        label: Hero image (optional)
+        widget: image
+        required: false
+      - name: heroAlt
+        label: Hero image alt text
+        widget: string
+        required: false
+        hint: Describe the image for accessibility and image search.
+      - name: body
+        label: Article body
+        widget: markdown
+        hint: Headings, paragraphs, lists, links, quotes and images. No need for a top H1 — the title is the H1.

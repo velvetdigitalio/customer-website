@@ -1,5 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import { TextLink } from "@/components/ui/TextLink";
+import { getAllJournalEntries } from "@/lib/journal-content";
 
 export const metadata = pageMeta({
   title: "Journal — Luxury Digital Marketing Notes",
@@ -8,46 +9,18 @@ export const metadata = pageMeta({
   path: "/journal/",
 });
 
-const articles = [
-  {
-    slug: "selling-to-the-gulf-nri-buyer",
-    title: "Selling fine jewellery to the Gulf's Indian buyer",
-    lead: "The UAE has one of the world's densest concentrations of high-net-worth Indian families. Most jewellery brands market to them as if they were the same as buyers back home. They aren't.",
-    category: "Field notes",
-    date: "June 2026",
-  },
-  {
-    slug: "whatsapp-luxury-sales-channel",
-    title: "WhatsApp is where the Gulf's luxury sales actually close",
-    lead: "In the UAE, the high-value enquiry doesn't want a web form. It wants a conversation — on the app it already lives in. The brands that understand this are quietly winning.",
-    category: "Field notes",
-    date: "June 2026",
-  },
-  {
-    slug: "what-works-luxury-digital-2026",
-    title: "What's actually working in luxury digital, 2026",
-    lead: "Every year brings a new list of tactics. Most are noise. A few genuinely move the needle for high-value brands. Here is what we're paying attention to — and what we're ignoring.",
-    category: "Field notes",
-    date: "June 2026",
-  },
-  {
-    slug: "interior-designers-digital-presence",
-    title: "What interior designers get wrong about going digital",
-    lead: "Interior design is a visual field, so it's tempting to assume a beautiful portfolio does the selling. It doesn't. Clients hire on trust and fit — and that's built before they ever call.",
-    category: "Field notes",
-    date: "June 2026",
-  },
-  {
-    slug: "heritage-jeweller-digital",
-    title: "How a heritage jeweller should think about digital",
-    lead: "The best jewellery houses already have the hard part — the craft. What they usually lack is a digital presence that carries it.",
-    category: "Field notes",
-    date: "June 2026",
-  },
-];
-
 export default function JournalPage() {
-  const [featured, ...rest] = articles;
+  // Every article now lives as a file in content/journal/. This list is read
+  // at build time and ordered newest-first — nothing to register by hand.
+  const allArticles = getAllJournalEntries().map((e) => ({
+    slug: e.slug,
+    title: e.meta.title,
+    lead: e.meta.standfirst,
+    category: e.meta.eyebrow,
+    date: e.meta.date,
+  }));
+
+  const [featured, ...rest] = allArticles;
 
   return (
     <main className="pt-28 lg:pt-36 pb-2xl">

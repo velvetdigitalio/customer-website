@@ -1,18 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
+import { getJournalSlugs } from "@/lib/journal-content";
 
 export const dynamic = "force-static";
 
 const lastModified = new Date("2026-06-10");
 const moneyLastModified = new Date("2026-07-02");
-
-const journalSlugs = [
-  "selling-to-the-gulf-nri-buyer",
-  "whatsapp-luxury-sales-channel",
-  "what-works-luxury-digital-2026",
-  "interior-designers-digital-presence",
-  "heritage-jeweller-digital",
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const core: { path: string; priority: number; changeFrequency: "monthly" | "yearly" }[] = [
@@ -39,7 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/best-jewellery-marketing-agencies-dubai/", priority: 0.8, changeFrequency: "monthly" },
   ];
 
-  const articles = journalSlugs.map((slug) => ({
+  // Every journal article is a file in content/journal/ — read them all.
+  const articles = getJournalSlugs().map((slug) => ({
     path: `/journal/${slug}/`,
     priority: 0.6,
     changeFrequency: "yearly" as const,
