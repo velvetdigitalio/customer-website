@@ -7,7 +7,7 @@ backend:
   branch: main
   # Hosted login broker (Cloudflare Worker in /cms-oauth). Replace the host below
   # with YOUR deployed Worker URL, then commit + push. See cms-oauth/README.md.
-  base_url: https://velvet-cms-oauth.REPLACE-ME.workers.dev
+  base_url: https://velvet-cms-oauth.velvetchetan.workers.dev
 
 # Lets you run the CMS with zero auth locally via `npx decap-server`.
 local_backend: true
