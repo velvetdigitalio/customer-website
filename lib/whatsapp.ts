@@ -14,4 +14,4 @@ export const REFERRAL_INTRO_MESSAGE =
 
 /** Warm, general intro for the main "Message us" CTAs across the site. */
 export const GENERAL_INTRO_MESSAGE =
-  "Hi Velvet — I'd love to talk about working together. ";
+  "Hi Velvet — I'd love to know more about it. ";
