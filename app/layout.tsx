@@ -29,6 +29,10 @@ const HOME_DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Meta (Facebook) domain verification — rendered into the static <head>.
+  other: {
+    "facebook-domain-verification": "2exrf1l470c07sk8f29g7bb4ab41dz",
+  },
   title: {
     template: `%s | ${SITE_NAME}`,
     default: HOME_TITLE,
