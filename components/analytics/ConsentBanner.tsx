@@ -62,28 +62,28 @@ export function ConsentBanner() {
     >
       <div className="mx-auto flex max-w-[900px] flex-col gap-md px-md py-md sm:flex-row sm:items-center sm:justify-between lg:px-lg">
         <p className="text-ink-2 text-[length:var(--step--1)] leading-[1.5] max-w-[62ch]">
-          We use cookies to understand how the site is used and to measure our
-          advertising. You can accept or decline — the site works either way. See
-          our{" "}
+          We use a few cookies to understand what&rsquo;s useful here and to bring
+          our work to the right people. It keeps the studio&rsquo;s craft in front
+          of those who&rsquo;ll appreciate it. Happy to allow it?{" "}
           <Link href="/privacy/" className="text-ink underline underline-offset-2">
-            privacy policy
+            Privacy
           </Link>
           .
         </p>
-        <div className="flex shrink-0 gap-sm">
+        <div className="flex shrink-0 items-center gap-lg">
           <button
             type="button"
             onClick={() => decide(false)}
-            className="border border-hairline px-md py-2xs text-[length:var(--step--1)] text-ink-2 rounded-[var(--radius-sm)] hover:text-ink"
+            className="text-ink-2 text-[length:var(--step--1)] underline underline-offset-2 hover:text-ink"
           >
             Decline
           </button>
           <button
             type="button"
             onClick={() => decide(true)}
-            className="bg-ink text-cream px-md py-2xs text-[length:var(--step--1)] rounded-[var(--radius-sm)] hover:bg-espresso"
+            className="bg-gold text-espresso font-medium px-lg py-xs text-[length:var(--step--1)] rounded-[var(--radius-sm)] hover:bg-gold-soft transition-colors"
           >
-            Accept
+            Accept &amp; continue
           </button>
         </div>
       </div>
