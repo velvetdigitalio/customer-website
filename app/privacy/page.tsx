@@ -73,11 +73,11 @@ export default function PrivacyPage() {
             <p>
               We use cookies for two purposes: analytics (to measure site usage
               in aggregate) and advertising measurement (to understand which of our
-              Instagram and Facebook ads lead to enquiries). When you first visit,
-              we ask for your consent before setting these cookies — you can accept
-              or decline, and the site works either way. You can also block or
-              delete cookies in your browser settings at any time, and clearing the
-              site&rsquo;s stored data will let you make the choice again.
+              Instagram and Facebook ads lead to enquiries). You can opt out at any
+              time by blocking or deleting cookies in your browser settings, and we
+              honour browser-level privacy signals such as Global Privacy Control.
+              If you would prefer we not process your information, email us and we
+              will act on it promptly.
             </p>
           </section>
 

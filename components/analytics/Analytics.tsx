@@ -7,6 +7,7 @@ import {
   META_PIXEL_ID,
   ANALYTICS_ENABLED,
   CONSENT_KEY,
+  REQUIRE_CONSENT,
 } from "@/lib/analytics";
 
 /**
@@ -37,9 +38,15 @@ export function Analytics() {
 
   if (!ANALYTICS_ENABLED) return null;
 
+  // When consent isn't required we grant by default (but still honour a
+  // browser Global Privacy Control opt-out); otherwise read the stored choice.
+  const grantedExpr = REQUIRE_CONSENT
+    ? `var granted=false;try{granted=localStorage.getItem('${CONSENT_KEY}')==='granted';}catch(e){}`
+    : `var granted=true;try{if(navigator.globalPrivacyControl===true)granted=false;}catch(e){}`;
+
   const bootstrap = `
 (function(){
-  var granted=false;try{granted=localStorage.getItem('${CONSENT_KEY}')==='granted';}catch(e){}
+  ${grantedExpr}
   window.dataLayer=window.dataLayer||[];
   function gtag(){dataLayer.push(arguments);}
   window.gtag=gtag;

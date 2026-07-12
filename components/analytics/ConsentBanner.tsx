@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ANALYTICS_ENABLED, CONSENT_KEY, GA_ID, META_PIXEL_ID } from "@/lib/analytics";
+import {
+  ANALYTICS_ENABLED,
+  CONSENT_KEY,
+  GA_ID,
+  META_PIXEL_ID,
+  REQUIRE_CONSENT,
+} from "@/lib/analytics";
 
 /** Ad bounce pages measure regardless of consent, so the banner is pointless
  *  there (it would just flash before the redirect). Suppress it on these. */
@@ -21,7 +27,7 @@ export function ConsentBanner() {
   const suppressed = SUPPRESS_ON.some((p) => pathname === p || pathname === `${p}/`);
 
   useEffect(() => {
-    if (!ANALYTICS_ENABLED || suppressed) return;
+    if (!ANALYTICS_ENABLED || !REQUIRE_CONSENT || suppressed) return;
     try {
       if (!localStorage.getItem(CONSENT_KEY)) setShow(true);
     } catch {

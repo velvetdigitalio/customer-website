@@ -13,6 +13,15 @@ export const META_PIXEL_ID =
 
 export const ANALYTICS_ENABLED = Boolean(GA_ID || META_PIXEL_ID);
 
+/**
+ * When false (current), there is no consent banner: analytics and advertising
+ * default to granted for everyone, so we track all visitors — except those whose
+ * browser sends a Global Privacy Control opt-out, which we still honour. Chosen
+ * for a UAE-focused audience. Flip to true to bring the consent banner back
+ * (e.g. if you start targeting the EU/UK).
+ */
+export const REQUIRE_CONSENT = false;
+
 /** localStorage key holding the visitor's consent decision. */
 export const CONSENT_KEY = "vd-consent-v1";
 
