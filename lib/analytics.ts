@@ -8,7 +8,8 @@
  */
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-1R22ZGQ8JR";
-export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ""; // e.g. "123456789012345"
+export const META_PIXEL_ID =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "1743467796891183";
 
 export const ANALYTICS_ENABLED = Boolean(GA_ID || META_PIXEL_ID);
 
