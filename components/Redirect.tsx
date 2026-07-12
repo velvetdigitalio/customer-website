@@ -27,6 +27,19 @@ export function Redirect({
     // Record the conversion, then bounce. When trackers are active we hold the
     // redirect briefly so the beacon can send; otherwise it's instant.
     if (event) {
+      // Option B: these ad-landing pages measure the click regardless of the
+      // cookie banner — visitors bounce to Calendly/WhatsApp before they could
+      // answer it. Grant consent for this page load so the event actually
+      // sends. (The rest of the site stays consent-gated.)
+      if (window.fbq) window.fbq("consent", "grant");
+      if (window.gtag) {
+        window.gtag("consent", "update", {
+          ad_storage: "granted",
+          ad_user_data: "granted",
+          ad_personalization: "granted",
+          analytics_storage: "granted",
+        });
+      }
       trackEvent(event.ga, { destination: label }, { event: event.pixel });
     }
     const delay = event && ANALYTICS_ENABLED ? 500 : 0;

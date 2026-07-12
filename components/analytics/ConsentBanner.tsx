@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ANALYTICS_ENABLED, CONSENT_KEY, GA_ID, META_PIXEL_ID } from "@/lib/analytics";
+
+/** Ad bounce pages measure regardless of consent, so the banner is pointless
+ *  there (it would just flash before the redirect). Suppress it on these. */
+const SUPPRESS_ON = ["/book", "/whatsapp"];
 
 /**
  * Minimal, on-brand consent banner. Shows only when tracking is enabled and the
@@ -12,15 +17,17 @@ import { ANALYTICS_ENABLED, CONSENT_KEY, GA_ID, META_PIXEL_ID } from "@/lib/anal
  */
 export function ConsentBanner() {
   const [show, setShow] = useState(false);
+  const pathname = usePathname();
+  const suppressed = SUPPRESS_ON.some((p) => pathname === p || pathname === `${p}/`);
 
   useEffect(() => {
-    if (!ANALYTICS_ENABLED) return;
+    if (!ANALYTICS_ENABLED || suppressed) return;
     try {
       if (!localStorage.getItem(CONSENT_KEY)) setShow(true);
     } catch {
       setShow(true);
     }
-  }, []);
+  }, [suppressed]);
 
   function decide(granted: boolean) {
     try {
