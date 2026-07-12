@@ -7,7 +7,7 @@
  * (or set the NEXT_PUBLIC_* env vars at build time) to switch tracking on.
  */
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? ""; // e.g. "G-XXXXXXXXXX"
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-1R22ZGQ8JR";
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ""; // e.g. "123456789012345"
 
 export const ANALYTICS_ENABLED = Boolean(GA_ID || META_PIXEL_ID);
