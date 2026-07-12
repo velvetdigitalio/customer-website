@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { VelvetMark } from "@/components/ui/VelvetMark";
 
@@ -47,7 +47,7 @@ export function FinalCta() {
         </Reveal>
         <Reveal delay={0.34}>
           <div className="mt-lg">
-            <Button calendly onDark>Request an audit</Button>
+            <WhatsAppButton onDark>Message us on WhatsApp</WhatsAppButton>
           </div>
         </Reveal>
       </div>

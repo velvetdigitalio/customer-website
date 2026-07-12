@@ -11,3 +11,7 @@ export function whatsappUrl(text?: string): string {
 /** Prefilled intro for the referral programme — the referrer fills the blanks. */
 export const REFERRAL_INTRO_MESSAGE =
   "Hi Velvet — I'd like to introduce a jewellery brand. Brand: [name]. Contact person: [name]. ";
+
+/** Warm, general intro for the main "Message us" CTAs across the site. */
+export const GENERAL_INTRO_MESSAGE =
+  "Hi Velvet — I'd love to talk about working together. ";

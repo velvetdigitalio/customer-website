@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { pageMeta } from "@/lib/seo";
 
@@ -37,7 +37,7 @@ export default function ContactPage() {
         <Container>
         <div className="max-w-[600px]">
           <Reveal>
-            <Button calendly>Request an audit</Button>
+            <WhatsAppButton>Message us on WhatsApp</WhatsAppButton>
           </Reveal>
 
           <Reveal delay={0.08}>

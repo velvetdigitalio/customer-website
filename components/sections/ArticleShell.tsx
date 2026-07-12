@@ -1,7 +1,7 @@
 import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TextLink } from "@/components/ui/TextLink";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { SITE_URL } from "@/lib/seo";
 
 export type Block =
@@ -156,7 +156,7 @@ export function ArticleShell({
                 the UAE.
               </p>
               <div className="shrink-0">
-                <Button calendly>Request an audit</Button>
+                <WhatsAppButton>Message us on WhatsApp</WhatsAppButton>
               </div>
             </div>
 

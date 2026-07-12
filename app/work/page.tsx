@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { EditorialImage } from "@/components/ui/EditorialImage";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -107,12 +107,12 @@ export default function WorkPage() {
           <Reveal delay={0.1}>
             <p className="mt-md text-ink-2 leading-[1.6] max-w-[52ch]">
               We share selected client work privately, matched to your category.
-              Request an audit and we'll send relevant examples.
+              Message us and we'll send relevant examples.
             </p>
           </Reveal>
           <Reveal delay={0.16}>
             <div className="mt-lg">
-              <Button calendly>Request an audit</Button>
+              <WhatsAppButton>Message us on WhatsApp</WhatsAppButton>
             </div>
           </Reveal>
         </div>

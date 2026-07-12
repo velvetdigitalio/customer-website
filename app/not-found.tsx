@@ -84,7 +84,7 @@ export default function NotFound() {
               onDark
               className="justify-center sm:justify-start"
             >
-              Request an audit
+              Message us
             </TextLink>
           </div>
         </Reveal>

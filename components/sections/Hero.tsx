@@ -2,7 +2,7 @@
 
 import { preload } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { TextLink } from "@/components/ui/TextLink";
 import { VelvetMark } from "@/components/ui/VelvetMark";
 
@@ -93,9 +93,9 @@ function StaticHero() {
         interiors — built in India, made to Gulf standards.
       </p>
       <div className="flex flex-col sm:flex-row sm:items-center gap-md mb-lg">
-        <Button calendly onDark className="w-full sm:w-auto text-center">
-          Request an audit
-        </Button>
+        <WhatsAppButton onDark className="w-full sm:w-auto">
+          Message us on WhatsApp
+        </WhatsAppButton>
         <TextLink href="/work/" arrow onDark className="justify-center sm:justify-start">
           View the work
         </TextLink>
@@ -233,9 +233,9 @@ export function Hero() {
               {/* 5. CTAs appear */}
               <FadeIn delay={1.6}>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-md mb-lg">
-                  <Button calendly onDark className="w-full sm:w-auto text-center">
-                    Request an audit
-                  </Button>
+                  <WhatsAppButton onDark className="w-full sm:w-auto">
+                    Message us on WhatsApp
+                  </WhatsAppButton>
                   <TextLink href="/work/" arrow onDark className="justify-center sm:justify-start">
                     View the work
                   </TextLink>

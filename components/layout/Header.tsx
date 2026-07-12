@@ -3,9 +3,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { PopupModal } from "react-calendly";
 import { cn } from "@/lib/cn";
-import { CALENDLY_URL } from "@/lib/calendly";
+import { whatsappUrl, GENERAL_INTRO_MESSAGE } from "@/lib/whatsapp";
+import { trackEvent } from "@/lib/analytics";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { VelvetMark } from "@/components/ui/VelvetMark";
 
@@ -19,15 +19,10 @@ const NAV_LINKS = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [calendlyOpen, setCalendlyOpen] = useState(false);
-  const [rootEl, setRootEl] = useState<HTMLElement | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setRootEl(document.body);
-  }, []);
+  const waHref = whatsappUrl(GENERAL_INTRO_MESSAGE);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -123,13 +118,17 @@ export function Header() {
                 <span className="relative">{link.label}</span>
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={() => setCalendlyOpen(true)}
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent("whatsapp_chat", { source: "header" }, { event: "Contact" })
+              }
               className="header-cta font-sans text-[length:var(--step--1)] uppercase tracking-[0.08em] rounded-[var(--radius-sm)] px-sm py-2xs cursor-pointer"
             >
-              Request an audit
-            </button>
+              Message us
+            </a>
           </nav>
 
           {/* Mobile hamburger */}
@@ -199,11 +198,13 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <button
-            type="button"
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => {
               setMenuOpen(false);
-              setCalendlyOpen(true);
+              trackEvent("whatsapp_chat", { source: "header-mobile" }, { event: "Contact" });
             }}
             className="self-start font-sans text-[length:var(--step--1)] uppercase tracking-[0.08em] text-ink border border-hairline rounded-[var(--radius-sm)] px-md py-xs hover:border-gold hover:text-gold cursor-pointer mt-sm"
             style={{
@@ -211,20 +212,10 @@ export function Header() {
                 "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1), border-color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
             }}
           >
-            Request an audit
-          </button>
+            Message us
+          </a>
         </nav>
       </div>
-
-      {/* Calendly popup */}
-      {rootEl && (
-        <PopupModal
-          url={CALENDLY_URL}
-          onModalClose={() => setCalendlyOpen(false)}
-          open={calendlyOpen}
-          rootElement={rootEl}
-        />
-      )}
     </>
   );
 }

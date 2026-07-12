@@ -1,9 +1,5 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { PopupModal } from "react-calendly";
-import { CALENDLY_URL } from "@/lib/calendly";
+import { whatsappUrl, GENERAL_INTRO_MESSAGE } from "@/lib/whatsapp";
 import { Wordmark } from "@/components/ui/Wordmark";
 
 const studioLinks = [
@@ -42,13 +38,6 @@ const socialLinks = [
 ] as const;
 
 export function Footer() {
-  const [calendlyOpen, setCalendlyOpen] = useState(false);
-  const [rootEl, setRootEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setRootEl(document.body);
-  }, []);
-
   return (
     <footer className="bg-umber text-cream">
       <div className="max-w-[1200px] mx-auto px-md lg:px-lg pt-xl lg:pt-2xl pb-lg lg:pb-xl">
@@ -127,17 +116,18 @@ export function Footer() {
               >
                 hello@velvetdigital.io
               </a>
-              <button
-                type="button"
-                onClick={() => setCalendlyOpen(true)}
-                className="font-sans text-cream-2 hover:text-cream w-fit text-left cursor-pointer"
+              <a
+                href={whatsappUrl(GENERAL_INTRO_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-sans text-cream-2 hover:text-cream w-fit"
                 style={{
                   transition:
                     "color var(--dur-fast) cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               >
-                Request an audit
-              </button>
+                Message us
+              </a>
               <p className="text-cream-2 text-[length:var(--step--1)] mt-2xs">
                 Bengaluru, India
               </p>
@@ -200,16 +190,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Calendly popup */}
-      {rootEl && (
-        <PopupModal
-          url={CALENDLY_URL}
-          onModalClose={() => setCalendlyOpen(false)}
-          open={calendlyOpen}
-          rootElement={rootEl}
-        />
-      )}
     </footer>
   );
 }

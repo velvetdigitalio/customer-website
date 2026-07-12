@@ -1,11 +1,14 @@
+"use client";
+
 import { cn } from "@/lib/cn";
-import { whatsappUrl, REFERRAL_INTRO_MESSAGE } from "@/lib/whatsapp";
+import { whatsappUrl, GENERAL_INTRO_MESSAGE } from "@/lib/whatsapp";
+import { trackEvent } from "@/lib/analytics";
 
 type WhatsAppButtonProps = {
   children: React.ReactNode;
   className?: string;
   onDark?: boolean;
-  /** Prefilled message; defaults to the referral intro. Pass "" for a blank chat. */
+  /** Prefilled message; defaults to a general intro. Pass "" for a blank chat. */
   message?: string;
 };
 
@@ -31,13 +34,16 @@ export function WhatsAppButton({
   children,
   className,
   onDark = false,
-  message = REFERRAL_INTRO_MESSAGE,
+  message = GENERAL_INTRO_MESSAGE,
 }: WhatsAppButtonProps) {
   return (
     <a
       href={whatsappUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() =>
+        trackEvent("whatsapp_chat", { source: "cta" }, { event: "Contact" })
+      }
       className={cn(
         "group relative overflow-hidden inline-flex items-center justify-center gap-[0.6em] px-lg py-sm font-sans text-[length:var(--step-0)] text-center uppercase tracking-[0.08em] rounded-[var(--radius-sm)] cursor-pointer",
         "transition-transform active:translate-y-px",
