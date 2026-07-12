@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { ANALYTICS_ENABLED, trackEvent } from "@/lib/analytics";
 
 /**
  * Instant client-side redirect used by the ad-destination pages (/book,
@@ -12,10 +13,26 @@ import { useEffect } from "react";
  *   3. a visible "Continue" link — fallback, and doubles as a compliant 1-tap
  *      landing page if an ad network rejects the auto-redirect.
  */
-export function Redirect({ to, label }: { to: string; label: string }) {
+export function Redirect({
+  to,
+  label,
+  event,
+}: {
+  to: string;
+  label: string;
+  /** Conversion to record before bouncing (GA4 name + Meta Pixel event). */
+  event?: { ga: string; pixel: string };
+}) {
   useEffect(() => {
-    window.location.replace(to);
-  }, [to]);
+    // Record the conversion, then bounce. When trackers are active we hold the
+    // redirect briefly so the beacon can send; otherwise it's instant.
+    if (event) {
+      trackEvent(event.ga, { destination: label }, { event: event.pixel });
+    }
+    const delay = event && ANALYTICS_ENABLED ? 500 : 0;
+    const timer = window.setTimeout(() => window.location.replace(to), delay);
+    return () => window.clearTimeout(timer);
+  }, [to, label, event]);
 
   return (
     <>

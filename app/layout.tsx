@@ -4,6 +4,8 @@ import { Fraunces } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Analytics } from "@/components/analytics/Analytics";
+import { ConsentBanner } from "@/components/analytics/ConsentBanner";
 import { professionalServiceLd, webSiteLd } from "@/lib/schema";
 import { SITE_URL, SITE_NAME, OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
@@ -74,9 +76,11 @@ export default function RootLayout({
     >
       <body className="min-h-dvh bg-paper text-ink font-sans">
         <JsonLd data={[professionalServiceLd, webSiteLd]} />
+        <Analytics />
         <Header />
         {children}
         <Footer />
+        <ConsentBanner />
       </body>
     </html>
   );

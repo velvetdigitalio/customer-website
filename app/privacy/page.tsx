@@ -15,7 +15,7 @@ export default function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="mt-sm text-ink-2 text-[length:var(--step--1)]">
-          Last updated: June 2026
+          Last updated: July 2026
         </p>
 
         <div className="mt-xl flex flex-col gap-lg text-ink-2 leading-[1.6]">
@@ -58,7 +58,9 @@ export default function PrivacyPage() {
             <p>
               We rely on a small number of reputable providers — for example, a
               scheduling tool (Calendly) for booking calls, an email provider, and
-              an analytics provider. When you use these, your information is also
+              analytics and advertising measurement tools (Google Analytics and the
+              Meta Pixel, which helps us understand and improve our Instagram and
+              Facebook advertising). When you use these, your information is also
               processed under their own privacy policies. We share only what is
               needed for them to perform their function.
             </p>
@@ -69,9 +71,13 @@ export default function PrivacyPage() {
               Cookies & analytics
             </h2>
             <p>
-              We use minimal cookies and privacy-respecting analytics to measure
-              site usage in aggregate. You can block or delete cookies in your
-              browser settings; the site will continue to work.
+              We use cookies for two purposes: analytics (to measure site usage
+              in aggregate) and advertising measurement (to understand which of our
+              Instagram and Facebook ads lead to enquiries). When you first visit,
+              we ask for your consent before setting these cookies — you can accept
+              or decline, and the site works either way. You can also block or
+              delete cookies in your browser settings at any time, and clearing the
+              site&rsquo;s stored data will let you make the choice again.
             </p>
           </section>
 

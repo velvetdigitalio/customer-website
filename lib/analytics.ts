@@ -1,0 +1,49 @@
+/**
+ * Analytics configuration and event helper.
+ *
+ * The IDs below are PUBLIC (they appear in page source on every analytics-
+ * enabled site), so they live in code, not secrets. While both are empty, ALL
+ * tracking and the consent banner stay dormant — nothing loads. Fill them in
+ * (or set the NEXT_PUBLIC_* env vars at build time) to switch tracking on.
+ */
+
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? ""; // e.g. "G-XXXXXXXXXX"
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ""; // e.g. "123456789012345"
+
+export const ANALYTICS_ENABLED = Boolean(GA_ID || META_PIXEL_ID);
+
+/** localStorage key holding the visitor's consent decision. */
+export const CONSENT_KEY = "vd-consent-v1";
+
+type GtagFn = (...args: unknown[]) => void;
+type FbqFn = (...args: unknown[]) => void;
+
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+    gtag?: GtagFn;
+    fbq?: FbqFn;
+  }
+}
+
+/**
+ * Fire an event to GA4 and Meta Pixel (whichever are loaded and consented).
+ * Respects consent automatically: if the trackers haven't been granted consent,
+ * the calls queue/withhold per Consent Mode and Meta's consent state.
+ *
+ * @param name    GA4 event name (snake_case).
+ * @param params  Event parameters.
+ * @param pixel   Optional Meta Pixel mapping: the standard event name (e.g.
+ *                "Lead", "Contact", "Schedule"). Omit to skip the Pixel.
+ */
+export function trackEvent(
+  name: string,
+  params: Record<string, unknown> = {},
+  pixel?: { event: string; custom?: boolean },
+): void {
+  if (typeof window === "undefined") return;
+  if (window.gtag && GA_ID) window.gtag("event", name, params);
+  if (window.fbq && META_PIXEL_ID && pixel) {
+    window.fbq(pixel.custom ? "trackCustom" : "track", pixel.event, params);
+  }
+}

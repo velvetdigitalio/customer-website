@@ -17,5 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default function WhatsappRedirectPage() {
-  return <Redirect to={whatsappUrl(INTRO_MESSAGE)} label="WhatsApp" />;
+  return (
+    <Redirect
+      to={whatsappUrl(INTRO_MESSAGE)}
+      label="WhatsApp"
+      event={{ ga: "whatsapp_chat", pixel: "Contact" }}
+    />
+  );
 }

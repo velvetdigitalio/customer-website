@@ -13,5 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default function BookRedirectPage() {
-  return <Redirect to={CALENDLY_URL} label="our booking calendar" />;
+  return (
+    <Redirect
+      to={CALENDLY_URL}
+      label="our booking calendar"
+      event={{ ga: "book_call", pixel: "Schedule" }}
+    />
+  );
 }
