@@ -8,10 +8,12 @@
  */
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-1R22ZGQ8JR";
+export const GOOGLE_ADS_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? "AW-18297207734";
 export const META_PIXEL_ID =
   process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "1743467796891183";
 
-export const ANALYTICS_ENABLED = Boolean(GA_ID || META_PIXEL_ID);
+export const ANALYTICS_ENABLED = Boolean(GA_ID || GOOGLE_ADS_ID || META_PIXEL_ID);
 
 /**
  * When false (current), there is no consent banner: analytics and advertising

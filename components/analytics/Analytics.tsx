@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import {
   GA_ID,
+  GOOGLE_ADS_ID,
   META_PIXEL_ID,
   ANALYTICS_ENABLED,
   CONSENT_KEY,
@@ -11,10 +12,11 @@ import {
 } from "@/lib/analytics";
 
 /**
- * Loads GA4 + Meta Pixel with Google Consent Mode v2. Consent defaults to
- * DENIED; the bootstrap reads a prior "granted" decision from localStorage so
- * returning consented visitors are tracked immediately. The ConsentBanner
- * flips consent to granted on Accept. Renders nothing while IDs are unset.
+ * Loads Google tag, Google Ads, GA4, and Meta Pixel with Google Consent Mode
+ * v2. Consent defaults to DENIED; the bootstrap reads a prior "granted"
+ * decision from localStorage so returning consented visitors are tracked
+ * immediately. The ConsentBanner flips consent to granted on Accept. Renders
+ * nothing while IDs are unset.
  */
 export function Analytics() {
   const pathname = usePathname();
@@ -53,6 +55,7 @@ export function Analytics() {
   gtag('consent','default',{ad_storage:granted?'granted':'denied',ad_user_data:granted?'granted':'denied',ad_personalization:granted?'granted':'denied',analytics_storage:granted?'granted':'denied',wait_for_update:500});
   gtag('js',new Date());
   ${GA_ID ? `gtag('config','${GA_ID}');` : ``}
+  ${GOOGLE_ADS_ID ? `gtag('config','${GOOGLE_ADS_ID}');` : ``}
   ${
     META_PIXEL_ID
       ? `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -71,10 +74,10 @@ export function Analytics() {
         id="vd-analytics-bootstrap"
         dangerouslySetInnerHTML={{ __html: bootstrap }}
       />
-      {GA_ID ? (
+      {GA_ID || GOOGLE_ADS_ID ? (
         <script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID || GOOGLE_ADS_ID}`}
         />
       ) : null}
     </>
