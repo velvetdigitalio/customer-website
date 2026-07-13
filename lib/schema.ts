@@ -3,11 +3,21 @@ import { SITE_URL, SITE_NAME } from "@/lib/seo";
 const LOGO = `${SITE_URL}/brand/lockup.png`;
 const IMAGE = `${SITE_URL}/og.png`;
 
+/**
+ * The Google Business Profile, addressed by its CID — the stable identifier for
+ * the listing itself, unlike a search URL. This is the link that ties the site's
+ * organisation entity to the profile Google already holds for us.
+ */
+const MAPS_URL = "https://maps.google.com/?cid=12536215606775610421";
+
 const SAME_AS = [
   "https://www.instagram.com/velvetdigital.io",
   "https://www.facebook.com/people/velvetdigitalio/61590411488979/",
+  MAPS_URL,
   // TODO: add the LinkedIn *company* page URL when it is live. The personal
   // profile below hangs off the founder Person node, not the organisation.
+  // TODO: add the Clutch profile URL — the directory answer engines actually
+  // cite for "best agency in Dubai" queries.
 ];
 
 /**
@@ -66,12 +76,25 @@ export const professionalServiceLd = {
   description:
     "A marketing agency for jewellery and interior design brands in Dubai and across the UAE. Brand, content, social and local SEO — built in India, made to Gulf standards.",
   areaServed: ["Dubai", "United Arab Emirates", "Abu Dhabi", "Sharjah"],
+  /**
+   * Must match the Google Business Profile *exactly*, character for character.
+   * Name/address/phone consistency across the profile, this site and every
+   * directory is a primary local-search trust signal — a site that disagrees
+   * with its own GBP undercuts the profile it is meant to support.
+   */
   address: {
     "@type": "PostalAddress",
-    // TODO: physical address pending
+    streetAddress: "401, Office Park Building, Block E, Dubai Internet City",
     addressLocality: "Dubai",
+    addressRegion: "Dubai",
     addressCountry: "AE",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 25.1059505,
+    longitude: 55.168925,
+  },
+  hasMap: `${MAPS_URL}`,
   sameAs: SAME_AS,
   founder: [{ "@id": `${SITE_URL}/#yash-jain` }, { "@id": `${SITE_URL}/#chetan-agarwal` }],
   knowsAbout: [

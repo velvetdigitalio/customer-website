@@ -57,7 +57,11 @@ export default function ContactPage() {
             <div className="mt-lg flex flex-col gap-2xs text-[length:var(--step--1)] text-ink-2">
               <p>We reply within two working days.</p>
               <p>We take a small number of new brands each quarter.</p>
-              <p>Bengaluru, India — working for the UAE.</p>
+              <p>
+                401, Office Park Building, Block E, Dubai Internet City, Dubai,
+                United Arab Emirates.
+              </p>
+              <p>Studio in Bengaluru, India — working for the Gulf.</p>
             </div>
           </Reveal>
 

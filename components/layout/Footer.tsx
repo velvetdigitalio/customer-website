@@ -129,7 +129,12 @@ export function Footer() {
                 Message us
               </a>
               <p className="text-cream-2 text-[length:var(--step--1)] mt-2xs">
-                Bengaluru, India
+                401, Office Park Building, Block E
+                <br />
+                Dubai Internet City, Dubai, UAE
+              </p>
+              <p className="text-cream-2 text-[length:var(--step--1)] mt-2xs">
+                Studio in Bengaluru, India
               </p>
             </div>
           </div>
