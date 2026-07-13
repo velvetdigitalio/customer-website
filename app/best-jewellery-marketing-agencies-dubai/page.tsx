@@ -83,7 +83,7 @@ const faqs: Faq[] = [
   },
   {
     q: "How much do jewellery marketing agencies in Dubai charge?",
-    a: "Retainers across the city range widely — from a few thousand dirhams a month for a focused service to well over AED 20,000 for a large full-service programme. Velvet Digital's own engagements run from AED 3,000 to around AED 15,000 a month. Always ask what is included and whether there is a lock-in.",
+    a: "Retainers across the city range widely — from a few thousand dirhams a month for a focused service to well over AED 20,000 for a large full-service programme. Velvet Digital's own engagements run from AED 3,000 to AED 10,000 a month. Always ask what is included and whether there is a lock-in.",
   },
   {
     q: "Should I choose a specialist or a full-service agency?",

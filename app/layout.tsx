@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/analytics/Analytics";
 import { ConsentBanner } from "@/components/analytics/ConsentBanner";
-import { professionalServiceLd, webSiteLd } from "@/lib/schema";
+import { professionalServiceLd, webSiteLd, peopleLd } from "@/lib/schema";
 import { SITE_URL, SITE_NAME, OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
@@ -79,7 +79,7 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable}`}
     >
       <body className="min-h-dvh bg-paper text-ink font-sans">
-        <JsonLd data={[professionalServiceLd, webSiteLd]} />
+        <JsonLd data={[professionalServiceLd, webSiteLd, ...peopleLd]} />
         <Analytics />
         <Header />
         {children}

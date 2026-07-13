@@ -7,6 +7,30 @@ isoDate: 2026-06-10
 pillar: /services/#content
 pillarLabel: Content & Film
 eyebrow: Field notes
+faqs:
+  - q: "What is the catalogue trap in jewellery marketing?"
+    a: >-
+      The catalogue trap is what happens when a heritage jewellery house runs its
+      feed like a display case: a flat catalogue of product shots on clinical
+      backgrounds, the same few compositions repeated until the audience that
+      matters stops looking. It is the single most common reason a serious brand
+      reads as a small one online.
+  - q: "How should a heritage jeweller approach Instagram?"
+    a: >-
+      With editorial discipline rather than louder marketing. A jewellery feed
+      should behave like the pages of a considered magazine, not the shelves of a
+      shop — one piece given room, photographed with intent. The work of a fine
+      setting rewards being seen closely, so macro film that shows the cut of a
+      stone and the weight of the metal does more for a serious buyer than any claim
+      a caption could make.
+  - q: "Should a heritage jeweller chase the largest possible audience?"
+    a: >-
+      No. For a high-value house it is almost always a mistake. Broad, cheap reach
+      pulls in the price-sensitive and trains the brand to discount. The discipline
+      is the opposite: speak precisely to the few who are right, answer the questions
+      a careful buyer asks — where the stones are from, how they are certified, why
+      the house can be trusted — and leave a quiet, direct path to a private
+      conversation.
 ---
 
 There is a particular kind of jewellery brand we find ourselves drawn to: decades old, genuinely skilled, trusted by the families who already know it — and almost invisible to the ones who don't. The craft is not the problem. The presentation is.
@@ -15,7 +39,7 @@ Most of these houses run their digital presence the way they ran a display case 
 
 ## Editorial discipline, not louder marketing
 
-The way out is not louder marketing. It is editorial discipline. A jewellery feed should behave like the pages of a considered magazine, not the shelves of a shop — one piece given room, photographed with intent, allowed to mean something. The work of a fine setting rewards being seen closely: the cut of a stone, the light moving through it, the weight of the metal. Macro film does more for a serious buyer than any claim a caption could make. Show the craft and the price explains itself.
+The way out of the catalogue trap is not louder marketing. It is editorial discipline. A jewellery feed should behave like the pages of a considered magazine, not the shelves of a shop — one piece given room, photographed with intent, allowed to mean something. The work of a fine setting rewards being seen closely: the cut of a stone, the light moving through it, the weight of the metal. Macro film does more for a serious buyer than any claim a caption could make. Show the craft and the price explains itself.
 
 ## Narrative over product
 
@@ -23,9 +47,9 @@ People do not buy a milestone piece because it appeared in a grid. They buy it b
 
 ## Restraint about who you talk to
 
-It is tempting to chase the largest possible audience, and it is almost always a mistake for a high-value brand. Broad, cheap reach pulls in the price-sensitive and trains the brand to discount. The discipline is the opposite: speak precisely to the few who are right, across the whole journey — work that earns attention, work that answers the questions a careful buyer asks (where the stones are from, how they are certified, why the house can be trusted), and a quiet, direct path to a private conversation when they are ready.
+It is tempting for a jewellery house to chase the largest possible audience, and it is almost always a mistake for a high-value brand. Broad, cheap reach pulls in the price-sensitive and trains the brand to discount. The discipline is the opposite: speak precisely to the few who are right, across the whole journey — work that earns attention, work that answers the questions a careful buyer asks (where the stones are from, how they are certified, why the house can be trusted), and a quiet, direct path to a private conversation when they are ready.
 
-## The last step matters most
+## The last step — the enquiry — matters most
 
 A serious enquiry should not land in a clumsy web form. It should be met — quickly, discreetly, well — wherever the buyer already is. A considered concierge that understands a question before a person needs to, and a local presence that is actually there when someone nearby goes looking, do more for a high-value house than another month of broad advertising.
 

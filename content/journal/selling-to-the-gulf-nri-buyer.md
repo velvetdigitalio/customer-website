@@ -7,16 +7,49 @@ isoDate: 2026-06-10
 pillar: /services/#brand
 pillarLabel: Brand & Identity
 eyebrow: Field notes
+faqs:
+  - q: "How is the Indian jewellery buyer in Dubai different from one in India?"
+    a: >-
+      The Indian family in Dubai is not the Indian family in Delhi. They are usually
+      more affluent, more international in taste, and more time-poor. They move
+      between cultures fluently — a wedding may be planned across three countries —
+      and they expect a brand to keep up. Marketing that simply ports a domestic
+      Indian campaign into the Gulf reads as provincial to them, and provincial is
+      the one thing this buyer will not pay a premium for.
+  - q: "How should a jewellery brand speak to the Gulf's Indian buyer?"
+    a: >-
+      With heritage in the product and international polish in the presentation —
+      closer to how a European maison speaks than how a high-street jeweller
+      advertises a festival sale. The gold can be traditional; the photography, the
+      typography, and the restraint around it cannot be. The brand has to look like
+      it belongs in the same conversation as the houses these families already buy
+      from in the mall down the road.
+  - q: "Why do weddings matter so much in Gulf jewellery buying?"
+    a: >-
+      Diaspora buying clusters around milestones, and the wedding above all. It is
+      rarely a single transaction — it is a season, often spanning continents, with
+      multiple high-value purchases inside it. A brand that builds its narrative
+      around that milestone, the moment and the lineage and the heirloom, sells far
+      more than one that simply lists pieces and prices.
+  - q: "What makes a high-value Gulf buyer hesitate?"
+    a: >-
+      Questions about provenance and trust. This is a market crowded with brands,
+      conscious of fluctuating gold prices, and increasingly alert to counterfeits,
+      which makes a careful buyer ask harder questions before a large purchase.
+      Certification, sourcing and the brand's own story stop being fine print and
+      become part of the sell. A house that answers those questions plainly, before
+      they are asked, closes more of the sales that hesitant buyers otherwise walk
+      away from.
 ---
 
 The Gulf is not a side market for fine jewellery — it is one of the most important rooms a brand can be in. The UAE's luxury goods market is worth close to nine billion dollars and still growing, and jewellery is one of its most resilient categories, carried by a wealthy resident population, constant tourism, and a deep cultural attachment to gold. For an Indian jewellery house, the opportunity is sharpened further by the sheer size of the Indian diaspora living and spending there.
 
 But the brands that win this buyer understand something the others miss: the Indian family in Dubai is not the Indian family in Delhi. They are usually more affluent, more international in taste, and more time-poor. They move between cultures fluently — a wedding may be planned across three countries — and they expect a brand to keep up. Marketing that simply ports a domestic Indian campaign into the Gulf reads as provincial to them, and provincial is the one thing this buyer will not pay a premium for.
 
-The first adjustment is register. This audience responds to heritage and craft, but presented with international polish — closer to how a European maison speaks than how a high-street jeweller advertises a festival sale. The gold can be traditional; the photography, the typography, and the restraint around it cannot be. The brand has to look like it belongs in the same conversation as the houses these families already buy from in the mall down the road.
+The first adjustment a jewellery brand has to make is register. This audience responds to heritage and craft, but presented with international polish — closer to how a European maison speaks than how a high-street jeweller advertises a festival sale. The gold can be traditional; the photography, the typography, and the restraint around it cannot be. The brand has to look like it belongs in the same conversation as the houses these families already buy from in the mall down the road.
 
-The second is the occasion. Diaspora buying clusters around milestones — weddings above all, but also anniversaries, births, and the quiet acquisitions that mark a family's standing. The wedding, in particular, is rarely a single transaction; it is a season, often spanning continents, with multiple high-value purchases inside it. A brand that builds its narrative around that milestone — the moment, the lineage, the heirloom — sells far more than one that simply lists pieces and prices. People do not fly a jeweller's collection into a wedding because it appeared in a grid. They choose it because it belongs to the occasion.
+The second adjustment is the occasion. Diaspora buying clusters around milestones — weddings above all, but also anniversaries, births, and the quiet acquisitions that mark a family's standing. The wedding, in particular, is rarely a single transaction; it is a season, often spanning continents, with multiple high-value purchases inside it. A brand that builds its narrative around that milestone — the moment, the lineage, the heirloom — sells far more than one that simply lists pieces and prices. People do not fly a jeweller's collection into a wedding because it appeared in a grid. They choose it because it belongs to the occasion.
 
-The third is provenance and trust. This is a market crowded with brands, conscious of fluctuating gold prices, and increasingly alert to counterfeits — all of which makes a careful buyer ask harder questions before a large purchase. Certification, sourcing, and the brand's own story stop being fine print and become part of the sell. A house that answers those questions plainly, before they are asked, closes more of the high-value sales that hesitant buyers otherwise walk away from.
+The third adjustment is provenance and trust. This is a market crowded with brands, conscious of fluctuating gold prices, and increasingly alert to counterfeits — all of which makes a careful buyer ask harder questions before a large purchase. Certification, sourcing, and the brand's own story stop being fine print and become part of the sell. A house that answers those questions plainly, before they are asked, closes more of the high-value sales that hesitant buyers otherwise walk away from.
 
 None of this requires shouting. It requires speaking to this buyer as the international, discerning, time-poor person they are — heritage in the product, polish in the presentation, and the occasion at the centre of the story. Do that, and the distance between an Indian workshop and a Gulf living room stops being a gap to apologise for. It becomes the reason to choose you.

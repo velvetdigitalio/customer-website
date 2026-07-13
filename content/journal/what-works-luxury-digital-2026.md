@@ -7,6 +7,29 @@ isoDate: 2026-06-10
 pillar: /services/#content
 pillarLabel: Content & Film
 eyebrow: Field notes
+faqs:
+  - q: "What is actually working in luxury digital marketing in 2026?"
+    a: >-
+      Four moves, made deliberately. Short-form video has become the front door,
+      and for a jewellery or interiors brand macro film that maps the craft is the
+      highest-leverage shift available. Social is becoming the shop rather than just
+      the showroom, so the path from admiration to enquiry has to be short and
+      elegant. Personalisation works when it is earned from signals a customer
+      willingly gives rather than extracted through broad tracking. And AI is useful
+      as a creative partner, within a hard limit.
+  - q: "Should luxury brands use AI in their marketing?"
+    a: >-
+      Use it to make and explore, not to fake a human relationship. Generative tools
+      extend a small team's range. But the market has already drawn the line: brands
+      poured money into virtual influencers and AI-generated personalities, and
+      audiences rejected them quickly, because synthetic faces lack authenticity and
+      emotion. Authenticity is the one thing this audience can still smell.
+  - q: "What luxury marketing tactics are not worth chasing?"
+    a: >-
+      Vanity metrics, trend-chasing for its own sake, and any tactic that adds
+      friction in the name of looking innovative. For a high-value brand, a clear
+      path and a trustworthy presence will out-convert a clever gimmick every time.
+      The winners in 2026 are not the loudest — they are the most deliberate.
 ---
 
 Luxury marketing in 2026 is caught between two pulls: heritage and digital-first experience, exclusivity and accessibility. The brands doing it well are not chasing every tactic on offer. They are choosing a small number of moves that genuinely elevate the experience and ignoring the rest. That discipline — picking one or two things that fit the brand's values, piloting them properly, and scaling only what works — beats reactive trend-adoption every time. Here is where we think the signal is.
@@ -21,4 +44,4 @@ Luxury marketing in 2026 is caught between two pulls: heritage and digital-first
 
 **What we are ignoring:** vanity metrics, trend-chasing for its own sake, and any tactic that adds friction in the name of looking innovative. For a high-value brand, a clear path and a trustworthy presence will out-convert a clever gimmick every time.
 
-If there is a single thread, it is that 2026's winners are not the loudest. They are the most deliberate — fewer moves, made with more care, measured against brand equity rather than clicks.
+If there is a single thread in what works in luxury digital in 2026, it is that the winners are not the loudest. They are the most deliberate — fewer moves, made with more care, measured against brand equity rather than clicks.

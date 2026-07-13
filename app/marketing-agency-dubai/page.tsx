@@ -28,7 +28,7 @@ const faqs: Faq[] = [
   },
   {
     q: "How much does a marketing agency in Dubai cost?",
-    a: "It varies widely across the city. Our own engagements start at AED 3,000 a month for a focused performance retainer and run to around AED 15,000 a month for a full brand-and-content programme with add-ons. We scope to the work, not a fixed package.",
+    a: "It varies widely across the city. Our own engagements start at AED 3,000 a month for a focused performance retainer and run to AED 10,000 a month for a full brand-and-content programme, with add-ons from AED 5,000. We scope to the work, not a fixed package.",
   },
   {
     q: "Are you based in Dubai?",

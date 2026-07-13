@@ -55,6 +55,7 @@ export default async function Page({
       servicesLabel={meta.pillarLabel}
       hero={meta.hero}
       heroAlt={meta.heroAlt}
+      faqs={meta.faqs}
       html={html}
     />
   );

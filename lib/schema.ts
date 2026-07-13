@@ -6,8 +6,53 @@ const IMAGE = `${SITE_URL}/og.png`;
 const SAME_AS = [
   "https://www.instagram.com/velvetdigital.io",
   "https://www.facebook.com/people/velvetdigitalio/61590411488979/",
-  // TODO: add LinkedIn URL when the company page is live
+  // TODO: add the LinkedIn *company* page URL when it is live. The personal
+  // profile below hangs off the founder Person node, not the organisation.
 ];
+
+/**
+ * The people behind the studio, as first-class entities.
+ *
+ * Answer engines resolve "who runs Velvet Digital" through an entity graph, not
+ * through prose. Naming real people — and linking them to a profile that exists
+ * elsewhere on the web via `sameAs` — is what makes the studio resolvable to
+ * humans rather than to an anonymous brand. Every person here must be real and
+ * consented; see the no-fabrication rule in CLAUDE.md.
+ */
+export const yashLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/#yash-jain`,
+  name: "Yash Jain",
+  jobTitle: "Founder",
+  url: `${SITE_URL}/studio/`,
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+  sameAs: ["https://www.linkedin.com/in/yash-jain-13b316420"],
+};
+
+export const chetanLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/#chetan-agarwal`,
+  name: "Chetan Agarwal",
+  jobTitle: "Founder",
+  url: `${SITE_URL}/studio/`,
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+  // TODO: add Chetan's LinkedIn URL to `sameAs` when available.
+};
+
+/** Author of the journal. Referenced by @id from every Article node. */
+export const richaLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/#richa-s`,
+  name: "Richa S.",
+  url: `${SITE_URL}/journal/`,
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+};
+
+/** All Person nodes — rendered once in the root layout alongside the org. */
+export const peopleLd = [yashLd, chetanLd, richaLd];
 
 /** Sitewide ProfessionalService — rendered once in the root layout. */
 export const professionalServiceLd = {
@@ -28,6 +73,7 @@ export const professionalServiceLd = {
     addressCountry: "AE",
   },
   sameAs: SAME_AS,
+  founder: [{ "@id": `${SITE_URL}/#yash-jain` }, { "@id": `${SITE_URL}/#chetan-agarwal` }],
   knowsAbout: [
     "Jewellery Marketing",
     "Luxury Branding",
@@ -35,7 +81,11 @@ export const professionalServiceLd = {
     "Local SEO",
     "Google Business Profile",
   ],
-  priceRange: "AED 3,000 – AED 15,000 / month",
+  // Retainers are AED 3,000 / 5,000 / 10,000 a month. This range must match the
+  // tiers in components/money/ServiceTiers.tsx, every pricing FAQ, and
+  // public/llms.txt — an answer engine that finds two different numbers for the
+  // same question will state neither with confidence.
+  priceRange: "AED 3,000 – AED 10,000 / month",
 };
 
 /** Sitewide WebSite schema — rendered once in the root layout. */

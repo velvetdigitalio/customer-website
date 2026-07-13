@@ -21,7 +21,9 @@ implementation follows the **actual** codebase:
 | Where | TODO |
 | --- | --- |
 | `lib/schema.ts` | `ProfessionalService.address` has locality/country only — **add the physical street address** when available (`TODO: physical address pending`). |
-| `lib/schema.ts` | `sameAs` has Instagram + Facebook — **add the LinkedIn company URL** when the page is live. |
+| `lib/schema.ts` | Org `sameAs` has Instagram + Facebook — **add the LinkedIn *company* page URL** when it is live. (Yash's personal LinkedIn is already on his `Person` node.) |
+| `lib/schema.ts` | `chetanLd.sameAs` is absent — **add Chetan's LinkedIn** when available. |
+| `public/pitch-deck/index.html` | Quotes a pricing ladder up to **AED 15,000** while the site now says **AED 10,000** top. Not crawlable (noindex + robots-disallowed), so it does not affect search or answer engines, but **reconcile it** so prospects aren't told two numbers. |
 | `app/best-jewellery-marketing-agencies-dubai/page.tsx` | **Verify each competitor URL** before publishing. Domains used are best-known guesses: ASTUDIO `astudio.ae`, SEO Sherpa `seosherpa.com`, Prism Digital `prismdigital.ae`, Nexa `digitalnexa.com`, Glimpse `glimpse.ae`. Fix any that 404 or redirect elsewhere. All are `rel="nofollow noopener"`. |
 | `components/money/ProofPlaceholder.tsx` (used on 6 money pages) | **Replace with real, attributable testimonials + results** as engagements complete. Per `CLAUDE.md`, never fabricate — the dashed empty state is intentional until you have real proof. |
 | OG imagery | All pages share `/og.png`. Consider **per-page OG images** for the money pages later (pass `ogImage` to `pageMeta`). |
@@ -68,6 +70,31 @@ Full sitemap also includes: `/`, `/services/`, `/studio/`, `/work/`,
   preloaded via `react-dom` `preload` (`fetchPriority: high`). No analytics
   script is installed in the codebase (privacy copy references analytics but
   no `<script>` exists), so there is nothing to defer.
+
+- **Phase 7 — AEO (answer engines).** Four changes, aimed at being *citable* by
+  ChatGPT / Perplexity / AI Overviews rather than only rankable:
+  1. **One price, everywhere.** Retainers are **AED 3,000 / 5,000 / 10,000** a
+     month, add-ons from AED 5,000. Four places previously said AED 15,000 (incl.
+     `priceRange` and `llms.txt`), so a model asked what we cost got a coin flip.
+     If pricing changes, it must change in **all** of: `lib/schema.ts`
+     (`priceRange`), `components/money/ServiceTiers.tsx` usages, every pricing
+     FAQ, `public/llms.txt`, and `content/journal/marketing-agency-cost-dubai.md`.
+  2. **People as entities.** `Person` nodes for Yash Jain and Chetan Agarwal
+     (`founder` on the org) and Richa S. (`author` on every Article), rendered
+     sitewide from the root layout and referenced by `@id`. Answer engines resolve
+     "who runs this studio" through an entity graph, not prose.
+  3. **FAQ on the journal.** `ArticleShell` takes an optional `faqs` array from
+     frontmatter, renders it visibly via `FaqSection` and emits `FAQPage`
+     alongside `Article` — same single-source pattern as the money pages, so the
+     schema and the visible copy can never drift. All 14 pieces now carry 3–5
+     pairs (55 total).
+  4. **Passage-level self-containment.** Retrieval pulls a *chunk*, not a page, so
+     H2s were rewritten to name their subject ("Typical ranges" → "What a
+     marketing retainer typically costs in Dubai") and each section's opening
+     sentence now restates what it is about instead of leaning on the title.
+
+  Deliberately **not** done: further `llms.txt` investment. No major crawler
+  honours it today; it is cheap insurance, not a lever.
 
 ### Note on the build size report
 

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
 import { load as yamlLoad, FAILSAFE_SCHEMA } from "js-yaml";
+import type { Faq } from "@/lib/schema";
 
 /**
  * File-based journal pipeline. Drop an `.html` file into `content/journal/` and
@@ -39,6 +40,8 @@ export type JournalMeta = {
   pillarLabel: string;
   /** Small label above the headline. Defaults to "Guide". */
   eyebrow: string;
+  /** Optional Q→A pairs, rendered visibly and mirrored into FAQPage schema. */
+  faqs?: Faq[];
 };
 
 export type JournalEntry = { slug: string; meta: JournalMeta; html: string };
@@ -52,17 +55,17 @@ export type JournalEntry = { slug: string; meta: JournalMeta; html: string };
  * metadata rather than crashing the whole static build.
  */
 function parseFrontmatter(raw: string, label = "article"): {
-  data: Record<string, string>;
+  data: Record<string, unknown>;
   body: string;
 } {
   const match = raw.match(/^﻿?---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/);
   if (!match) return { data: {}, body: raw };
 
-  let data: Record<string, string> = {};
+  let data: Record<string, unknown> = {};
   try {
     const parsed = yamlLoad(match[1], { schema: FAILSAFE_SCHEMA });
     if (parsed && typeof parsed === "object") {
-      data = parsed as Record<string, string>;
+      data = parsed as Record<string, unknown>;
     }
   } catch (err) {
     console.warn(
@@ -70,6 +73,31 @@ function parseFrontmatter(raw: string, label = "article"): {
     );
   }
   return { data, body: match[2] ?? "" };
+}
+
+/** Frontmatter values are `unknown` since YAML can hold lists and maps too. */
+function str(value: unknown): string | undefined {
+  return typeof value === "string" ? value : undefined;
+}
+
+/**
+ * Coerce a frontmatter `faqs:` list into Faq[], dropping any entry missing a
+ * question or an answer. A half-written FAQ must never reach the schema: markup
+ * that promises an answer the page does not show is exactly what earns a manual
+ * action.
+ */
+function parseFaqs(value: unknown, label: string): Faq[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const faqs = value.flatMap((item) => {
+    const q = str((item as Record<string, unknown>)?.q)?.trim();
+    const a = str((item as Record<string, unknown>)?.a)?.trim();
+    if (!q || !a) {
+      console.warn(`[journal] Dropping incomplete FAQ entry in "${label}".`);
+      return [];
+    }
+    return [{ q, a }];
+  });
+  return faqs.length ? faqs : undefined;
 }
 
 /**
@@ -125,19 +153,20 @@ export function getJournalEntry(slug: string): JournalEntry | null {
   const body = isMarkdown
     ? (marked.parse(parsed.body) as string)
     : parsed.body;
-  const isoDate = data.isoDate ?? data.date ?? "";
+  const isoDate = str(data.isoDate) ?? str(data.date) ?? "";
   const meta: JournalMeta = {
-    title: data.title ?? slug,
-    description: data.description ?? data.standfirst ?? "",
-    standfirst: data.standfirst ?? data.description ?? "",
+    title: str(data.title) ?? slug,
+    description: str(data.description) ?? str(data.standfirst) ?? "",
+    standfirst: str(data.standfirst) ?? str(data.description) ?? "",
     // Display date: use the given one, else derive "Month YYYY" from isoDate.
-    date: data.date || formatDisplayDate(isoDate),
+    date: str(data.date) || formatDisplayDate(isoDate),
     isoDate,
-    hero: data.hero || undefined,
-    heroAlt: data.heroAlt || data.title || undefined,
-    pillar: data.pillar ?? "/journal/",
-    pillarLabel: data.pillarLabel ?? "Back to journal",
-    eyebrow: data.eyebrow || "Guide",
+    hero: str(data.hero) || undefined,
+    heroAlt: str(data.heroAlt) || str(data.title) || undefined,
+    pillar: str(data.pillar) ?? "/journal/",
+    pillarLabel: str(data.pillarLabel) ?? "Back to journal",
+    eyebrow: str(data.eyebrow) || "Guide",
+    faqs: parseFaqs(data.faqs, slug),
   };
   return { slug, meta, html: cleanHtml(body).trim() };
 }

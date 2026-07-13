@@ -2,6 +2,9 @@ import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TextLink } from "@/components/ui/TextLink";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { FaqSection } from "@/components/money/FaqSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqPageLd, richaLd, type Faq } from "@/lib/schema";
 import { SITE_URL } from "@/lib/seo";
 
 export type Block =
@@ -29,6 +32,12 @@ type ArticleShellProps = {
   /** Optional hero image path under /public. */
   hero?: string;
   heroAlt?: string;
+  /**
+   * Questions this piece answers, rendered visibly and mirrored into FAQPage
+   * schema from the same array. These articles are titled with the exact queries
+   * buyers type, so the Q→A pairs are the part an answer engine can lift whole.
+   */
+  faqs?: Faq[];
 };
 
 function ArticleBody({ body }: { body: Block[] }) {
@@ -77,19 +86,19 @@ export function ArticleShell({
   html,
   hero,
   heroAlt,
+  faqs,
 }: ArticleShellProps) {
-  const jsonLd = {
+  const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
     description: standfirst,
     ...(hero ? { image: `${SITE_URL}${hero}` } : {}),
-    author: { "@type": "Organization", name: "Velvet Digital", url: SITE_URL },
-    publisher: {
-      "@type": "Organization",
-      name: "Velvet Digital",
-      url: SITE_URL,
-    },
+    // A named human, not the organisation. The full Person node lives in the
+    // root layout; the @id here resolves to it, and the name is repeated inline
+    // so the Article still parses standalone.
+    author: { "@id": richaLd["@id"], "@type": "Person", name: richaLd.name },
+    publisher: { "@id": `${SITE_URL}/#organization` },
     datePublished: isoDate,
     dateModified: isoDate,
     mainEntityOfPage: {
@@ -98,12 +107,11 @@ export function ArticleShell({
     },
   };
 
+  const jsonLd = faqs?.length ? [articleLd, faqPageLd(faqs)] : [articleLd];
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <article>
         <Section surface="umber" heroDark>
           <div className="max-w-[720px] mx-auto">
@@ -115,7 +123,7 @@ export function ArticleShell({
               {standfirst}
             </p>
             <p className="mt-sm text-cream-2 text-[length:var(--step--1)]">
-              Velvet Digital · {date}
+              {richaLd.name} · Velvet Digital · {date}
             </p>
           </div>
         </Section>
@@ -170,6 +178,10 @@ export function ArticleShell({
             </div>
           </div>
         </Section>
+
+        {faqs && faqs.length > 0 && (
+          <FaqSection faqs={faqs} heading="Related questions" />
+        )}
       </article>
     </>
   );
