@@ -61,6 +61,11 @@ export default function ContactPage() {
                 401, Office Park Building, Block E, Dubai Internet City, Dubai,
                 United Arab Emirates.
               </p>
+              <p>
+                <a href="tel:+918861184926" className="link text-ink">
+                  <span className="relative">+91 88611 84926</span>
+                </a>
+              </p>
               <p>Studio in Bengaluru, India — working for the Gulf.</p>
             </div>
           </Reveal>

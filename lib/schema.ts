@@ -14,10 +14,12 @@ const SAME_AS = [
   "https://www.instagram.com/velvetdigital.io",
   "https://www.facebook.com/people/velvetdigitalio/61590411488979/",
   MAPS_URL,
+  // Canonical Clutch URL — no tracking parameters. Clutch is the third-party
+  // directory answer engines actually cite for "best agency in Dubai" queries,
+  // so tying the organisation entity to it matters more than the social links.
+  "https://clutch.co/profile/velvet-digital-0",
   // TODO: add the LinkedIn *company* page URL when it is live. The personal
   // profile below hangs off the founder Person node, not the organisation.
-  // TODO: add the Clutch profile URL — the directory answer engines actually
-  // cite for "best agency in Dubai" queries.
 ];
 
 /**
@@ -95,6 +97,11 @@ export const professionalServiceLd = {
     longitude: 55.168925,
   },
   hasMap: `${MAPS_URL}`,
+  // Matches the number on the Google Business Profile, which is what NAP
+  // consistency requires. It is an Indian mobile on a Dubai listing, though —
+  // a local +971 line would serve the profile better if one is ever available.
+  telephone: "+91 88611 84926",
+  foundingDate: "2023",
   sameAs: SAME_AS,
   founder: [{ "@id": `${SITE_URL}/#yash-jain` }, { "@id": `${SITE_URL}/#chetan-agarwal` }],
   knowsAbout: [
